@@ -3,7 +3,7 @@ Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 Grammar
 
 Rule 0     S' -> start
-Rule 1     start -> bloc
+Rule 1     start -> bloc function_main
 Rule 2     bloc -> bloc statement
 Rule 3     bloc -> statement
 Rule 4     statement -> IF LPAREN expression RPAREN LBRACE bloc RBRACE SEMI
@@ -23,6 +23,7 @@ Rule 17    parameters_function -> NAME COMMA parameters_function
 Rule 18    parameters_function -> NAME
 Rule 19    parameters -> expression COMMA parameters
 Rule 20    parameters -> expression
+<<<<<<< HEAD
 Rule 21    statement -> NAME EQUAL expression SEMI
 Rule 22    statement -> PRINT LPAREN expression_print RPAREN SEMI
 Rule 23    expression_print -> expression COMMA expression_print
@@ -79,29 +80,91 @@ RPAREN               : 4 5 7 8 9 10 11 12 13 14 15 22 34
 SEMI                 : 4 6 7 8 8 9 9 10 11 12 13 14 15 16 21 22 37 38 41 42
 SUP                  : 31 36 36
 TIMES                : 27
+=======
+Rule 21    function_main -> MAIN LPAREN RPAREN LBRACE bloc RBRACE
+Rule 22    statement -> NAME EQUAL expression SEMI
+Rule 23    statement -> NAME EQUAL statement
+Rule 24    statement -> PRINT LPAREN expression_print RPAREN SEMI
+Rule 25    expression_print -> expression COMMA expression_print
+Rule 26    expression_print -> expression
+Rule 27    expression_print -> statement COMMA expression_print
+Rule 28    expression_print -> statement
+Rule 29    expression -> expression PLUS expression
+Rule 30    expression -> expression MINUS expression
+Rule 31    expression -> expression TIMES expression
+Rule 32    expression -> expression OR expression
+Rule 33    expression -> expression AND expression
+Rule 34    expression -> expression INF expression
+Rule 35    expression -> expression SUP expression
+Rule 36    expression -> expression DIVIDE expression
+Rule 37    expression -> expression EQUALS expression
+Rule 38    expression -> LPAREN expression RPAREN
+Rule 39    expression -> expression INF NAME INF expression
+Rule 40    expression -> expression SUP NAME SUP expression
+Rule 41    statement -> NAME PLUSPLUS SEMI
+Rule 42    expression -> NUMBER
+Rule 43    expression -> NAME
+
+Terminals, with rules where they appear
+
+AND                  : 33
+COMMA                : 17 19 25 27
+DIVIDE               : 36
+ELSE                 : 6
+EQUAL                : 22 23
+EQUALS               : 37
+FOR                  : 8 9
+FUNCTION             : 14 15
+IF                   : 4 5
+INF                  : 34 39 39
+LBRACE               : 4 5 6 7 8 9 10 11 14 15 21
+LPAREN               : 4 5 7 8 9 10 11 12 13 14 15 21 24 38
+MAIN                 : 21
+MINUS                : 30
+NAME                 : 10 11 12 13 14 15 17 18 22 23 39 40 41 43
+NUMBER               : 42
+OR                   : 32
+PLUS                 : 29
+PLUSPLUS             : 41
+PRINT                : 24
+RBRACE               : 4 5 6 7 8 9 10 11 14 15 21
+RETURN               : 16
+RPAREN               : 4 5 7 8 9 10 11 12 13 14 15 21 24 38
+SEMI                 : 4 6 7 8 8 9 9 10 11 12 13 14 15 16 22 24 41
+SUP                  : 35 40 40
+TIMES                : 31
+>>>>>>> test
 VOID                 : 10 11
 WHILE                : 7
 error                : 
 
 Nonterminals, with rules where they appear
 
+<<<<<<< HEAD
 array_values         : 41 45
 bloc                 : 1 2 4 5 6 7 8 9 10 11 14 15
 condition            : 5
 expression           : 4 5 7 8 8 9 16 19 20 21 23 24 25 25 26 26 27 27 28 28 29 29 30 30 31 31 32 32 33 33 34 35 35 36 36 38 42 42 43 44 45
 expression_print     : 22 23
+=======
+bloc                 : 1 2 4 5 6 7 8 9 10 11 14 15 21
+condition            : 5
+expression           : 4 5 7 8 8 9 16 19 20 22 25 26 29 29 30 30 31 31 32 32 33 33 34 34 35 35 36 36 37 37 38 39 39 40 40
+expression_print     : 24 25 27
+function_main        : 1
+>>>>>>> test
 parameters           : 13 19
 parameters_function  : 11 15 17
 return_statement     : 14 15
 start                : 0
-statement            : 2 3 8 9 9
+statement            : 2 3 8 9 9 23 27 28
 
 Parsing method: LALR
 
 state 0
 
     (0) S' -> . start
-    (1) start -> . bloc
+    (1) start -> . bloc function_main
     (2) bloc -> . bloc statement
     (3) bloc -> . statement
     (4) statement -> . IF LPAREN expression RPAREN LBRACE bloc RBRACE SEMI
@@ -115,12 +178,19 @@ state 0
     (13) statement -> . NAME LPAREN parameters RPAREN SEMI
     (14) statement -> . FUNCTION NAME LPAREN RPAREN LBRACE bloc return_statement RBRACE SEMI
     (15) statement -> . FUNCTION NAME LPAREN parameters_function RPAREN LBRACE bloc return_statement RBRACE SEMI
+<<<<<<< HEAD
     (21) statement -> . NAME EQUAL expression SEMI
     (22) statement -> . PRINT LPAREN expression_print RPAREN SEMI
     (37) statement -> . NAME PLUSPLUS SEMI
     (38) statement -> . NAME PLUSEQUAL expression SEMI
     (41) statement -> . NAME LBRACKET RBRACKET EQUAL LBRACKET array_values RBRACKET SEMI
     (42) statement -> . NAME LBRACKET expression RBRACKET EQUAL expression SEMI
+=======
+    (22) statement -> . NAME EQUAL expression SEMI
+    (23) statement -> . NAME EQUAL statement
+    (24) statement -> . PRINT LPAREN expression_print RPAREN SEMI
+    (41) statement -> . NAME PLUSPLUS SEMI
+>>>>>>> test
 
     IF              shift and go to state 4
     WHILE           shift and go to state 5
@@ -142,8 +212,9 @@ state 1
 
 state 2
 
-    (1) start -> bloc .
+    (1) start -> bloc . function_main
     (2) bloc -> bloc . statement
+    (21) function_main -> . MAIN LPAREN RPAREN LBRACE bloc RBRACE
     (4) statement -> . IF LPAREN expression RPAREN LBRACE bloc RBRACE SEMI
     (5) statement -> . IF LPAREN expression RPAREN LBRACE bloc RBRACE condition
     (7) statement -> . WHILE LPAREN expression RPAREN LBRACE bloc RBRACE SEMI
@@ -155,14 +226,21 @@ state 2
     (13) statement -> . NAME LPAREN parameters RPAREN SEMI
     (14) statement -> . FUNCTION NAME LPAREN RPAREN LBRACE bloc return_statement RBRACE SEMI
     (15) statement -> . FUNCTION NAME LPAREN parameters_function RPAREN LBRACE bloc return_statement RBRACE SEMI
+<<<<<<< HEAD
     (21) statement -> . NAME EQUAL expression SEMI
     (22) statement -> . PRINT LPAREN expression_print RPAREN SEMI
     (37) statement -> . NAME PLUSPLUS SEMI
     (38) statement -> . NAME PLUSEQUAL expression SEMI
     (41) statement -> . NAME LBRACKET RBRACKET EQUAL LBRACKET array_values RBRACKET SEMI
     (42) statement -> . NAME LBRACKET expression RBRACKET EQUAL expression SEMI
+=======
+    (22) statement -> . NAME EQUAL expression SEMI
+    (23) statement -> . NAME EQUAL statement
+    (24) statement -> . PRINT LPAREN expression_print RPAREN SEMI
+    (41) statement -> . NAME PLUSPLUS SEMI
+>>>>>>> test
 
-    $end            reduce using rule 1 (start -> bloc .)
+    MAIN            shift and go to state 13
     IF              shift and go to state 4
     WHILE           shift and go to state 5
     FOR             shift and go to state 6
@@ -171,12 +249,14 @@ state 2
     FUNCTION        shift and go to state 9
     PRINT           shift and go to state 10
 
-    statement                      shift and go to state 11
+    function_main                  shift and go to state 11
+    statement                      shift and go to state 12
 
 state 3
 
     (3) bloc -> statement .
 
+    MAIN            reduce using rule 3 (bloc -> statement .)
     IF              reduce using rule 3 (bloc -> statement .)
     WHILE           reduce using rule 3 (bloc -> statement .)
     FOR             reduce using rule 3 (bloc -> statement .)
@@ -184,7 +264,6 @@ state 3
     NAME            reduce using rule 3 (bloc -> statement .)
     FUNCTION        reduce using rule 3 (bloc -> statement .)
     PRINT           reduce using rule 3 (bloc -> statement .)
-    $end            reduce using rule 3 (bloc -> statement .)
     RBRACE          reduce using rule 3 (bloc -> statement .)
     RETURN          reduce using rule 3 (bloc -> statement .)
 
@@ -194,14 +273,14 @@ state 4
     (4) statement -> IF . LPAREN expression RPAREN LBRACE bloc RBRACE SEMI
     (5) statement -> IF . LPAREN expression RPAREN LBRACE bloc RBRACE condition
 
-    LPAREN          shift and go to state 12
+    LPAREN          shift and go to state 14
 
 
 state 5
 
     (7) statement -> WHILE . LPAREN expression RPAREN LBRACE bloc RBRACE SEMI
 
-    LPAREN          shift and go to state 13
+    LPAREN          shift and go to state 15
 
 
 state 6
@@ -209,7 +288,7 @@ state 6
     (8) statement -> FOR . LPAREN statement expression SEMI expression RPAREN LBRACE bloc RBRACE SEMI
     (9) statement -> FOR . LPAREN statement expression SEMI statement RPAREN LBRACE bloc RBRACE SEMI
 
-    LPAREN          shift and go to state 14
+    LPAREN          shift and go to state 16
 
 
 state 7
@@ -217,13 +296,14 @@ state 7
     (10) statement -> VOID . NAME LPAREN RPAREN LBRACE bloc RBRACE SEMI
     (11) statement -> VOID . NAME LPAREN parameters_function RPAREN LBRACE bloc RBRACE SEMI
 
-    NAME            shift and go to state 15
+    NAME            shift and go to state 17
 
 
 state 8
 
     (12) statement -> NAME . LPAREN RPAREN SEMI
     (13) statement -> NAME . LPAREN parameters RPAREN SEMI
+<<<<<<< HEAD
     (21) statement -> NAME . EQUAL expression SEMI
     (37) statement -> NAME . PLUSPLUS SEMI
     (38) statement -> NAME . PLUSEQUAL expression SEMI
@@ -235,6 +315,15 @@ state 8
     PLUSPLUS        shift and go to state 18
     PLUSEQUAL       shift and go to state 19
     LBRACKET        shift and go to state 20
+=======
+    (22) statement -> NAME . EQUAL expression SEMI
+    (23) statement -> NAME . EQUAL statement
+    (41) statement -> NAME . PLUSPLUS SEMI
+
+    LPAREN          shift and go to state 18
+    EQUAL           shift and go to state 19
+    PLUSPLUS        shift and go to state 20
+>>>>>>> test
 
 
 state 9
@@ -247,15 +336,23 @@ state 9
 
 state 10
 
-    (22) statement -> PRINT . LPAREN expression_print RPAREN SEMI
+    (24) statement -> PRINT . LPAREN expression_print RPAREN SEMI
 
     LPAREN          shift and go to state 22
 
 
 state 11
 
+    (1) start -> bloc function_main .
+
+    $end            reduce using rule 1 (start -> bloc function_main .)
+
+
+state 12
+
     (2) bloc -> bloc statement .
 
+    MAIN            reduce using rule 2 (bloc -> bloc statement .)
     IF              reduce using rule 2 (bloc -> bloc statement .)
     WHILE           reduce using rule 2 (bloc -> bloc statement .)
     FOR             reduce using rule 2 (bloc -> bloc statement .)
@@ -263,15 +360,22 @@ state 11
     NAME            reduce using rule 2 (bloc -> bloc statement .)
     FUNCTION        reduce using rule 2 (bloc -> bloc statement .)
     PRINT           reduce using rule 2 (bloc -> bloc statement .)
-    $end            reduce using rule 2 (bloc -> bloc statement .)
     RBRACE          reduce using rule 2 (bloc -> bloc statement .)
     RETURN          reduce using rule 2 (bloc -> bloc statement .)
 
 
-state 12
+state 13
+
+    (21) function_main -> MAIN . LPAREN RPAREN LBRACE bloc RBRACE
+
+    LPAREN          shift and go to state 23
+
+
+state 14
 
     (4) statement -> IF LPAREN . expression RPAREN LBRACE bloc RBRACE SEMI
     (5) statement -> IF LPAREN . expression RPAREN LBRACE bloc RBRACE condition
+<<<<<<< HEAD
     (25) expression -> . expression PLUS expression
     (26) expression -> . expression MINUS expression
     (27) expression -> . expression TIMES expression
@@ -316,10 +420,54 @@ state 13
     LPAREN          shift and go to state 23
     NUMBER          shift and go to state 26
     NAME            shift and go to state 25
+=======
+    (29) expression -> . expression PLUS expression
+    (30) expression -> . expression MINUS expression
+    (31) expression -> . expression TIMES expression
+    (32) expression -> . expression OR expression
+    (33) expression -> . expression AND expression
+    (34) expression -> . expression INF expression
+    (35) expression -> . expression SUP expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression EQUALS expression
+    (38) expression -> . LPAREN expression RPAREN
+    (39) expression -> . expression INF NAME INF expression
+    (40) expression -> . expression SUP NAME SUP expression
+    (42) expression -> . NUMBER
+    (43) expression -> . NAME
+
+    LPAREN          shift and go to state 24
+    NUMBER          shift and go to state 27
+    NAME            shift and go to state 26
+>>>>>>> test
 
     expression                     shift and go to state 27
 
-state 14
+state 15
+
+    (7) statement -> WHILE LPAREN . expression RPAREN LBRACE bloc RBRACE SEMI
+    (29) expression -> . expression PLUS expression
+    (30) expression -> . expression MINUS expression
+    (31) expression -> . expression TIMES expression
+    (32) expression -> . expression OR expression
+    (33) expression -> . expression AND expression
+    (34) expression -> . expression INF expression
+    (35) expression -> . expression SUP expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression EQUALS expression
+    (38) expression -> . LPAREN expression RPAREN
+    (39) expression -> . expression INF NAME INF expression
+    (40) expression -> . expression SUP NAME SUP expression
+    (42) expression -> . NUMBER
+    (43) expression -> . NAME
+
+    LPAREN          shift and go to state 24
+    NUMBER          shift and go to state 27
+    NAME            shift and go to state 26
+
+    expression                     shift and go to state 28
+
+state 16
 
     (8) statement -> FOR LPAREN . statement expression SEMI expression RPAREN LBRACE bloc RBRACE SEMI
     (9) statement -> FOR LPAREN . statement expression SEMI statement RPAREN LBRACE bloc RBRACE SEMI
@@ -334,12 +482,19 @@ state 14
     (13) statement -> . NAME LPAREN parameters RPAREN SEMI
     (14) statement -> . FUNCTION NAME LPAREN RPAREN LBRACE bloc return_statement RBRACE SEMI
     (15) statement -> . FUNCTION NAME LPAREN parameters_function RPAREN LBRACE bloc return_statement RBRACE SEMI
+<<<<<<< HEAD
     (21) statement -> . NAME EQUAL expression SEMI
     (22) statement -> . PRINT LPAREN expression_print RPAREN SEMI
     (37) statement -> . NAME PLUSPLUS SEMI
     (38) statement -> . NAME PLUSEQUAL expression SEMI
     (41) statement -> . NAME LBRACKET RBRACKET EQUAL LBRACKET array_values RBRACKET SEMI
     (42) statement -> . NAME LBRACKET expression RBRACKET EQUAL expression SEMI
+=======
+    (22) statement -> . NAME EQUAL expression SEMI
+    (23) statement -> . NAME EQUAL statement
+    (24) statement -> . PRINT LPAREN expression_print RPAREN SEMI
+    (41) statement -> . NAME PLUSPLUS SEMI
+>>>>>>> test
 
     IF              shift and go to state 4
     WHILE           shift and go to state 5
@@ -349,22 +504,31 @@ state 14
     FUNCTION        shift and go to state 9
     PRINT           shift and go to state 10
 
+<<<<<<< HEAD
     statement                      shift and go to state 28
+=======
+    statement                      shift and go to state 29
+>>>>>>> test
 
-state 15
+state 17
 
     (10) statement -> VOID NAME . LPAREN RPAREN LBRACE bloc RBRACE SEMI
     (11) statement -> VOID NAME . LPAREN parameters_function RPAREN LBRACE bloc RBRACE SEMI
 
+<<<<<<< HEAD
     LPAREN          shift and go to state 29
+=======
+    LPAREN          shift and go to state 30
+>>>>>>> test
 
 
-state 16
+state 18
 
     (12) statement -> NAME LPAREN . RPAREN SEMI
     (13) statement -> NAME LPAREN . parameters RPAREN SEMI
     (19) parameters -> . expression COMMA parameters
     (20) parameters -> . expression
+<<<<<<< HEAD
     (25) expression -> . expression PLUS expression
     (26) expression -> . expression MINUS expression
     (27) expression -> . expression TIMES expression
@@ -419,10 +583,34 @@ state 18
     (37) statement -> NAME PLUSPLUS . SEMI
 
     SEMI            shift and go to state 34
+=======
+    (29) expression -> . expression PLUS expression
+    (30) expression -> . expression MINUS expression
+    (31) expression -> . expression TIMES expression
+    (32) expression -> . expression OR expression
+    (33) expression -> . expression AND expression
+    (34) expression -> . expression INF expression
+    (35) expression -> . expression SUP expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression EQUALS expression
+    (38) expression -> . LPAREN expression RPAREN
+    (39) expression -> . expression INF NAME INF expression
+    (40) expression -> . expression SUP NAME SUP expression
+    (42) expression -> . NUMBER
+    (43) expression -> . NAME
 
+    RPAREN          shift and go to state 31
+    LPAREN          shift and go to state 24
+    NUMBER          shift and go to state 27
+    NAME            shift and go to state 26
+>>>>>>> test
+
+    parameters                     shift and go to state 32
+    expression                     shift and go to state 33
 
 state 19
 
+<<<<<<< HEAD
     (38) statement -> NAME PLUSEQUAL . expression SEMI
     (25) expression -> . expression PLUS expression
     (26) expression -> . expression MINUS expression
@@ -472,6 +660,59 @@ state 20
     NAME            shift and go to state 25
 
     expression                     shift and go to state 37
+=======
+    (22) statement -> NAME EQUAL . expression SEMI
+    (23) statement -> NAME EQUAL . statement
+    (29) expression -> . expression PLUS expression
+    (30) expression -> . expression MINUS expression
+    (31) expression -> . expression TIMES expression
+    (32) expression -> . expression OR expression
+    (33) expression -> . expression AND expression
+    (34) expression -> . expression INF expression
+    (35) expression -> . expression SUP expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression EQUALS expression
+    (38) expression -> . LPAREN expression RPAREN
+    (39) expression -> . expression INF NAME INF expression
+    (40) expression -> . expression SUP NAME SUP expression
+    (42) expression -> . NUMBER
+    (43) expression -> . NAME
+    (4) statement -> . IF LPAREN expression RPAREN LBRACE bloc RBRACE SEMI
+    (5) statement -> . IF LPAREN expression RPAREN LBRACE bloc RBRACE condition
+    (7) statement -> . WHILE LPAREN expression RPAREN LBRACE bloc RBRACE SEMI
+    (8) statement -> . FOR LPAREN statement expression SEMI expression RPAREN LBRACE bloc RBRACE SEMI
+    (9) statement -> . FOR LPAREN statement expression SEMI statement RPAREN LBRACE bloc RBRACE SEMI
+    (10) statement -> . VOID NAME LPAREN RPAREN LBRACE bloc RBRACE SEMI
+    (11) statement -> . VOID NAME LPAREN parameters_function RPAREN LBRACE bloc RBRACE SEMI
+    (12) statement -> . NAME LPAREN RPAREN SEMI
+    (13) statement -> . NAME LPAREN parameters RPAREN SEMI
+    (14) statement -> . FUNCTION NAME LPAREN RPAREN LBRACE bloc return_statement RBRACE SEMI
+    (15) statement -> . FUNCTION NAME LPAREN parameters_function RPAREN LBRACE bloc return_statement RBRACE SEMI
+    (22) statement -> . NAME EQUAL expression SEMI
+    (23) statement -> . NAME EQUAL statement
+    (24) statement -> . PRINT LPAREN expression_print RPAREN SEMI
+    (41) statement -> . NAME PLUSPLUS SEMI
+
+    LPAREN          shift and go to state 24
+    NUMBER          shift and go to state 27
+    NAME            shift and go to state 34
+    IF              shift and go to state 4
+    WHILE           shift and go to state 5
+    FOR             shift and go to state 6
+    VOID            shift and go to state 7
+    FUNCTION        shift and go to state 9
+    PRINT           shift and go to state 10
+
+    expression                     shift and go to state 35
+    statement                      shift and go to state 36
+
+state 20
+
+    (41) statement -> NAME PLUSPLUS . SEMI
+
+    SEMI            shift and go to state 37
+
+>>>>>>> test
 
 state 21
 
@@ -482,6 +723,7 @@ state 21
 
 
 state 22
+<<<<<<< HEAD
 
     (22) statement -> PRINT LPAREN . expression_print RPAREN SEMI
     (23) expression_print -> . expression COMMA expression_print
@@ -535,21 +777,45 @@ state 23
     expression                     shift and go to state 41
 
 state 24
+=======
+>>>>>>> test
 
-    (4) statement -> IF LPAREN expression . RPAREN LBRACE bloc RBRACE SEMI
-    (5) statement -> IF LPAREN expression . RPAREN LBRACE bloc RBRACE condition
-    (25) expression -> expression . PLUS expression
-    (26) expression -> expression . MINUS expression
-    (27) expression -> expression . TIMES expression
-    (28) expression -> expression . OR expression
-    (29) expression -> expression . AND expression
-    (30) expression -> expression . INF expression
-    (31) expression -> expression . SUP expression
-    (32) expression -> expression . DIVIDE expression
-    (33) expression -> expression . EQUALS expression
-    (35) expression -> expression . INF NAME INF expression
-    (36) expression -> expression . SUP NAME SUP expression
+    (24) statement -> PRINT LPAREN . expression_print RPAREN SEMI
+    (25) expression_print -> . expression COMMA expression_print
+    (26) expression_print -> . expression
+    (27) expression_print -> . statement COMMA expression_print
+    (28) expression_print -> . statement
+    (29) expression -> . expression PLUS expression
+    (30) expression -> . expression MINUS expression
+    (31) expression -> . expression TIMES expression
+    (32) expression -> . expression OR expression
+    (33) expression -> . expression AND expression
+    (34) expression -> . expression INF expression
+    (35) expression -> . expression SUP expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression EQUALS expression
+    (38) expression -> . LPAREN expression RPAREN
+    (39) expression -> . expression INF NAME INF expression
+    (40) expression -> . expression SUP NAME SUP expression
+    (42) expression -> . NUMBER
+    (43) expression -> . NAME
+    (4) statement -> . IF LPAREN expression RPAREN LBRACE bloc RBRACE SEMI
+    (5) statement -> . IF LPAREN expression RPAREN LBRACE bloc RBRACE condition
+    (7) statement -> . WHILE LPAREN expression RPAREN LBRACE bloc RBRACE SEMI
+    (8) statement -> . FOR LPAREN statement expression SEMI expression RPAREN LBRACE bloc RBRACE SEMI
+    (9) statement -> . FOR LPAREN statement expression SEMI statement RPAREN LBRACE bloc RBRACE SEMI
+    (10) statement -> . VOID NAME LPAREN RPAREN LBRACE bloc RBRACE SEMI
+    (11) statement -> . VOID NAME LPAREN parameters_function RPAREN LBRACE bloc RBRACE SEMI
+    (12) statement -> . NAME LPAREN RPAREN SEMI
+    (13) statement -> . NAME LPAREN parameters RPAREN SEMI
+    (14) statement -> . FUNCTION NAME LPAREN RPAREN LBRACE bloc return_statement RBRACE SEMI
+    (15) statement -> . FUNCTION NAME LPAREN parameters_function RPAREN LBRACE bloc return_statement RBRACE SEMI
+    (22) statement -> . NAME EQUAL expression SEMI
+    (23) statement -> . NAME EQUAL statement
+    (24) statement -> . PRINT LPAREN expression_print RPAREN SEMI
+    (41) statement -> . NAME PLUSPLUS SEMI
 
+<<<<<<< HEAD
     RPAREN          shift and go to state 42
     PLUS            shift and go to state 43
     MINUS           shift and go to state 44
@@ -560,10 +826,56 @@ state 24
     SUP             shift and go to state 49
     DIVIDE          shift and go to state 50
     EQUALS          shift and go to state 51
+=======
+    LPAREN          shift and go to state 24
+    NUMBER          shift and go to state 27
+    NAME            shift and go to state 34
+    IF              shift and go to state 4
+    WHILE           shift and go to state 5
+    FOR             shift and go to state 6
+    VOID            shift and go to state 7
+    FUNCTION        shift and go to state 9
+    PRINT           shift and go to state 10
 
+    expression_print               shift and go to state 39
+    expression                     shift and go to state 40
+    statement                      shift and go to state 41
+
+state 23
+
+    (21) function_main -> MAIN LPAREN . RPAREN LBRACE bloc RBRACE
+
+    RPAREN          shift and go to state 42
+
+
+state 24
+
+    (38) expression -> LPAREN . expression RPAREN
+    (29) expression -> . expression PLUS expression
+    (30) expression -> . expression MINUS expression
+    (31) expression -> . expression TIMES expression
+    (32) expression -> . expression OR expression
+    (33) expression -> . expression AND expression
+    (34) expression -> . expression INF expression
+    (35) expression -> . expression SUP expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression EQUALS expression
+    (38) expression -> . LPAREN expression RPAREN
+    (39) expression -> . expression INF NAME INF expression
+    (40) expression -> . expression SUP NAME SUP expression
+    (42) expression -> . NUMBER
+    (43) expression -> . NAME
+
+    LPAREN          shift and go to state 24
+    NUMBER          shift and go to state 27
+    NAME            shift and go to state 26
+>>>>>>> test
+
+    expression                     shift and go to state 43
 
 state 25
 
+<<<<<<< HEAD
     (40) expression -> NAME .
     (43) expression -> NAME . LBRACKET expression RBRACKET
 
@@ -627,10 +939,37 @@ state 27
     SUP             shift and go to state 49
     DIVIDE          shift and go to state 50
     EQUALS          shift and go to state 51
+=======
+    (4) statement -> IF LPAREN expression . RPAREN LBRACE bloc RBRACE SEMI
+    (5) statement -> IF LPAREN expression . RPAREN LBRACE bloc RBRACE condition
+    (29) expression -> expression . PLUS expression
+    (30) expression -> expression . MINUS expression
+    (31) expression -> expression . TIMES expression
+    (32) expression -> expression . OR expression
+    (33) expression -> expression . AND expression
+    (34) expression -> expression . INF expression
+    (35) expression -> expression . SUP expression
+    (36) expression -> expression . DIVIDE expression
+    (37) expression -> expression . EQUALS expression
+    (39) expression -> expression . INF NAME INF expression
+    (40) expression -> expression . SUP NAME SUP expression
+
+    RPAREN          shift and go to state 44
+    PLUS            shift and go to state 45
+    MINUS           shift and go to state 46
+    TIMES           shift and go to state 47
+    OR              shift and go to state 48
+    AND             shift and go to state 49
+    INF             shift and go to state 50
+    SUP             shift and go to state 51
+    DIVIDE          shift and go to state 52
+    EQUALS          shift and go to state 53
+>>>>>>> test
 
 
 state 28
 
+<<<<<<< HEAD
     (8) statement -> FOR LPAREN statement . expression SEMI expression RPAREN LBRACE bloc RBRACE SEMI
     (9) statement -> FOR LPAREN statement . expression SEMI statement RPAREN LBRACE bloc RBRACE SEMI
     (25) expression -> . expression PLUS expression
@@ -654,14 +993,102 @@ state 28
     NAME            shift and go to state 25
 
     expression                     shift and go to state 54
+=======
+    (43) expression -> NAME .
+
+    RPAREN          reduce using rule 43 (expression -> NAME .)
+    PLUS            reduce using rule 43 (expression -> NAME .)
+    MINUS           reduce using rule 43 (expression -> NAME .)
+    TIMES           reduce using rule 43 (expression -> NAME .)
+    OR              reduce using rule 43 (expression -> NAME .)
+    AND             reduce using rule 43 (expression -> NAME .)
+    INF             reduce using rule 43 (expression -> NAME .)
+    SUP             reduce using rule 43 (expression -> NAME .)
+    DIVIDE          reduce using rule 43 (expression -> NAME .)
+    EQUALS          reduce using rule 43 (expression -> NAME .)
+    COMMA           reduce using rule 43 (expression -> NAME .)
+    SEMI            reduce using rule 43 (expression -> NAME .)
+
+>>>>>>> test
 
 state 29
+
+    (42) expression -> NUMBER .
+
+    RPAREN          reduce using rule 42 (expression -> NUMBER .)
+    PLUS            reduce using rule 42 (expression -> NUMBER .)
+    MINUS           reduce using rule 42 (expression -> NUMBER .)
+    TIMES           reduce using rule 42 (expression -> NUMBER .)
+    OR              reduce using rule 42 (expression -> NUMBER .)
+    AND             reduce using rule 42 (expression -> NUMBER .)
+    INF             reduce using rule 42 (expression -> NUMBER .)
+    SUP             reduce using rule 42 (expression -> NUMBER .)
+    DIVIDE          reduce using rule 42 (expression -> NUMBER .)
+    EQUALS          reduce using rule 42 (expression -> NUMBER .)
+    COMMA           reduce using rule 42 (expression -> NUMBER .)
+    SEMI            reduce using rule 42 (expression -> NUMBER .)
+
+
+state 28
+
+    (7) statement -> WHILE LPAREN expression . RPAREN LBRACE bloc RBRACE SEMI
+    (29) expression -> expression . PLUS expression
+    (30) expression -> expression . MINUS expression
+    (31) expression -> expression . TIMES expression
+    (32) expression -> expression . OR expression
+    (33) expression -> expression . AND expression
+    (34) expression -> expression . INF expression
+    (35) expression -> expression . SUP expression
+    (36) expression -> expression . DIVIDE expression
+    (37) expression -> expression . EQUALS expression
+    (39) expression -> expression . INF NAME INF expression
+    (40) expression -> expression . SUP NAME SUP expression
+
+    RPAREN          shift and go to state 54
+    PLUS            shift and go to state 45
+    MINUS           shift and go to state 46
+    TIMES           shift and go to state 47
+    OR              shift and go to state 48
+    AND             shift and go to state 49
+    INF             shift and go to state 50
+    SUP             shift and go to state 51
+    DIVIDE          shift and go to state 52
+    EQUALS          shift and go to state 53
+
+
+state 29
+
+    (8) statement -> FOR LPAREN statement . expression SEMI expression RPAREN LBRACE bloc RBRACE SEMI
+    (9) statement -> FOR LPAREN statement . expression SEMI statement RPAREN LBRACE bloc RBRACE SEMI
+    (29) expression -> . expression PLUS expression
+    (30) expression -> . expression MINUS expression
+    (31) expression -> . expression TIMES expression
+    (32) expression -> . expression OR expression
+    (33) expression -> . expression AND expression
+    (34) expression -> . expression INF expression
+    (35) expression -> . expression SUP expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression EQUALS expression
+    (38) expression -> . LPAREN expression RPAREN
+    (39) expression -> . expression INF NAME INF expression
+    (40) expression -> . expression SUP NAME SUP expression
+    (42) expression -> . NUMBER
+    (43) expression -> . NAME
+
+    LPAREN          shift and go to state 24
+    NUMBER          shift and go to state 27
+    NAME            shift and go to state 26
+
+    expression                     shift and go to state 55
+
+state 30
 
     (10) statement -> VOID NAME LPAREN . RPAREN LBRACE bloc RBRACE SEMI
     (11) statement -> VOID NAME LPAREN . parameters_function RPAREN LBRACE bloc RBRACE SEMI
     (17) parameters_function -> . NAME COMMA parameters_function
     (18) parameters_function -> . NAME
 
+<<<<<<< HEAD
     RPAREN          shift and go to state 56
     NAME            shift and go to state 55
 
@@ -708,23 +1135,18 @@ state 32
     SUP             shift and go to state 49
     DIVIDE          shift and go to state 50
     EQUALS          shift and go to state 51
+=======
+    RPAREN          shift and go to state 57
+    NAME            shift and go to state 56
+>>>>>>> test
 
+    parameters_function            shift and go to state 58
 
 state 33
 
-    (21) statement -> NAME EQUAL expression . SEMI
-    (25) expression -> expression . PLUS expression
-    (26) expression -> expression . MINUS expression
-    (27) expression -> expression . TIMES expression
-    (28) expression -> expression . OR expression
-    (29) expression -> expression . AND expression
-    (30) expression -> expression . INF expression
-    (31) expression -> expression . SUP expression
-    (32) expression -> expression . DIVIDE expression
-    (33) expression -> expression . EQUALS expression
-    (35) expression -> expression . INF NAME INF expression
-    (36) expression -> expression . SUP NAME SUP expression
+    (12) statement -> NAME LPAREN RPAREN . SEMI
 
+<<<<<<< HEAD
     SEMI            shift and go to state 61
     PLUS            shift and go to state 43
     MINUS           shift and go to state 44
@@ -735,25 +1157,16 @@ state 33
     SUP             shift and go to state 49
     DIVIDE          shift and go to state 50
     EQUALS          shift and go to state 51
+=======
+    SEMI            shift and go to state 59
+>>>>>>> test
 
 
 state 34
 
-    (37) statement -> NAME PLUSPLUS SEMI .
+    (13) statement -> NAME LPAREN parameters . RPAREN SEMI
 
-    IF              reduce using rule 37 (statement -> NAME PLUSPLUS SEMI .)
-    WHILE           reduce using rule 37 (statement -> NAME PLUSPLUS SEMI .)
-    FOR             reduce using rule 37 (statement -> NAME PLUSPLUS SEMI .)
-    VOID            reduce using rule 37 (statement -> NAME PLUSPLUS SEMI .)
-    NAME            reduce using rule 37 (statement -> NAME PLUSPLUS SEMI .)
-    FUNCTION        reduce using rule 37 (statement -> NAME PLUSPLUS SEMI .)
-    PRINT           reduce using rule 37 (statement -> NAME PLUSPLUS SEMI .)
-    $end            reduce using rule 37 (statement -> NAME PLUSPLUS SEMI .)
-    LPAREN          reduce using rule 37 (statement -> NAME PLUSPLUS SEMI .)
-    NUMBER          reduce using rule 37 (statement -> NAME PLUSPLUS SEMI .)
-    RBRACE          reduce using rule 37 (statement -> NAME PLUSPLUS SEMI .)
-    RPAREN          reduce using rule 37 (statement -> NAME PLUSPLUS SEMI .)
-    RETURN          reduce using rule 37 (statement -> NAME PLUSPLUS SEMI .)
+    RPAREN          shift and go to state 60
 
 
 state 35
@@ -819,39 +1232,173 @@ state 37
 
 state 38
 
+    (19) parameters -> expression . COMMA parameters
+    (20) parameters -> expression .
+    (29) expression -> expression . PLUS expression
+    (30) expression -> expression . MINUS expression
+    (31) expression -> expression . TIMES expression
+    (32) expression -> expression . OR expression
+    (33) expression -> expression . AND expression
+    (34) expression -> expression . INF expression
+    (35) expression -> expression . SUP expression
+    (36) expression -> expression . DIVIDE expression
+    (37) expression -> expression . EQUALS expression
+    (39) expression -> expression . INF NAME INF expression
+    (40) expression -> expression . SUP NAME SUP expression
+
+    COMMA           shift and go to state 61
+    RPAREN          reduce using rule 20 (parameters -> expression .)
+    PLUS            shift and go to state 45
+    MINUS           shift and go to state 46
+    TIMES           shift and go to state 47
+    OR              shift and go to state 48
+    AND             shift and go to state 49
+    INF             shift and go to state 50
+    SUP             shift and go to state 51
+    DIVIDE          shift and go to state 52
+    EQUALS          shift and go to state 53
+
+
+state 34
+
+    (43) expression -> NAME .
+    (12) statement -> NAME . LPAREN RPAREN SEMI
+    (13) statement -> NAME . LPAREN parameters RPAREN SEMI
+    (22) statement -> NAME . EQUAL expression SEMI
+    (23) statement -> NAME . EQUAL statement
+    (41) statement -> NAME . PLUSPLUS SEMI
+
+    SEMI            reduce using rule 43 (expression -> NAME .)
+    PLUS            reduce using rule 43 (expression -> NAME .)
+    MINUS           reduce using rule 43 (expression -> NAME .)
+    TIMES           reduce using rule 43 (expression -> NAME .)
+    OR              reduce using rule 43 (expression -> NAME .)
+    AND             reduce using rule 43 (expression -> NAME .)
+    INF             reduce using rule 43 (expression -> NAME .)
+    SUP             reduce using rule 43 (expression -> NAME .)
+    DIVIDE          reduce using rule 43 (expression -> NAME .)
+    EQUALS          reduce using rule 43 (expression -> NAME .)
+    COMMA           reduce using rule 43 (expression -> NAME .)
+    RPAREN          reduce using rule 43 (expression -> NAME .)
+    LPAREN          shift and go to state 18
+    EQUAL           shift and go to state 19
+    PLUSPLUS        shift and go to state 20
+
+
+state 35
+
+    (22) statement -> NAME EQUAL expression . SEMI
+    (29) expression -> expression . PLUS expression
+    (30) expression -> expression . MINUS expression
+    (31) expression -> expression . TIMES expression
+    (32) expression -> expression . OR expression
+    (33) expression -> expression . AND expression
+    (34) expression -> expression . INF expression
+    (35) expression -> expression . SUP expression
+    (36) expression -> expression . DIVIDE expression
+    (37) expression -> expression . EQUALS expression
+    (39) expression -> expression . INF NAME INF expression
+    (40) expression -> expression . SUP NAME SUP expression
+
+    SEMI            shift and go to state 62
+    PLUS            shift and go to state 45
+    MINUS           shift and go to state 46
+    TIMES           shift and go to state 47
+    OR              shift and go to state 48
+    AND             shift and go to state 49
+    INF             shift and go to state 50
+    SUP             shift and go to state 51
+    DIVIDE          shift and go to state 52
+    EQUALS          shift and go to state 53
+
+
+state 36
+
+    (23) statement -> NAME EQUAL statement .
+
+    MAIN            reduce using rule 23 (statement -> NAME EQUAL statement .)
+    IF              reduce using rule 23 (statement -> NAME EQUAL statement .)
+    WHILE           reduce using rule 23 (statement -> NAME EQUAL statement .)
+    FOR             reduce using rule 23 (statement -> NAME EQUAL statement .)
+    VOID            reduce using rule 23 (statement -> NAME EQUAL statement .)
+    NAME            reduce using rule 23 (statement -> NAME EQUAL statement .)
+    FUNCTION        reduce using rule 23 (statement -> NAME EQUAL statement .)
+    PRINT           reduce using rule 23 (statement -> NAME EQUAL statement .)
+    LPAREN          reduce using rule 23 (statement -> NAME EQUAL statement .)
+    NUMBER          reduce using rule 23 (statement -> NAME EQUAL statement .)
+    COMMA           reduce using rule 23 (statement -> NAME EQUAL statement .)
+    RPAREN          reduce using rule 23 (statement -> NAME EQUAL statement .)
+    RBRACE          reduce using rule 23 (statement -> NAME EQUAL statement .)
+    RETURN          reduce using rule 23 (statement -> NAME EQUAL statement .)
+
+
+state 37
+
+    (41) statement -> NAME PLUSPLUS SEMI .
+
+    MAIN            reduce using rule 41 (statement -> NAME PLUSPLUS SEMI .)
+    IF              reduce using rule 41 (statement -> NAME PLUSPLUS SEMI .)
+    WHILE           reduce using rule 41 (statement -> NAME PLUSPLUS SEMI .)
+    FOR             reduce using rule 41 (statement -> NAME PLUSPLUS SEMI .)
+    VOID            reduce using rule 41 (statement -> NAME PLUSPLUS SEMI .)
+    NAME            reduce using rule 41 (statement -> NAME PLUSPLUS SEMI .)
+    FUNCTION        reduce using rule 41 (statement -> NAME PLUSPLUS SEMI .)
+    PRINT           reduce using rule 41 (statement -> NAME PLUSPLUS SEMI .)
+    LPAREN          reduce using rule 41 (statement -> NAME PLUSPLUS SEMI .)
+    NUMBER          reduce using rule 41 (statement -> NAME PLUSPLUS SEMI .)
+    COMMA           reduce using rule 41 (statement -> NAME PLUSPLUS SEMI .)
+    RPAREN          reduce using rule 41 (statement -> NAME PLUSPLUS SEMI .)
+    RBRACE          reduce using rule 41 (statement -> NAME PLUSPLUS SEMI .)
+    RETURN          reduce using rule 41 (statement -> NAME PLUSPLUS SEMI .)
+
+
+state 38
+
     (14) statement -> FUNCTION NAME LPAREN . RPAREN LBRACE bloc return_statement RBRACE SEMI
     (15) statement -> FUNCTION NAME LPAREN . parameters_function RPAREN LBRACE bloc return_statement RBRACE SEMI
     (17) parameters_function -> . NAME COMMA parameters_function
     (18) parameters_function -> . NAME
 
+<<<<<<< HEAD
     RPAREN          shift and go to state 65
     NAME            shift and go to state 55
 
     parameters_function            shift and go to state 66
+=======
+    RPAREN          shift and go to state 63
+    NAME            shift and go to state 56
+
+    parameters_function            shift and go to state 64
+>>>>>>> test
 
 state 39
 
-    (22) statement -> PRINT LPAREN expression_print . RPAREN SEMI
+    (24) statement -> PRINT LPAREN expression_print . RPAREN SEMI
 
+<<<<<<< HEAD
     RPAREN          shift and go to state 67
+=======
+    RPAREN          shift and go to state 65
+>>>>>>> test
 
 
 state 40
 
-    (23) expression_print -> expression . COMMA expression_print
-    (24) expression_print -> expression .
-    (25) expression -> expression . PLUS expression
-    (26) expression -> expression . MINUS expression
-    (27) expression -> expression . TIMES expression
-    (28) expression -> expression . OR expression
-    (29) expression -> expression . AND expression
-    (30) expression -> expression . INF expression
-    (31) expression -> expression . SUP expression
-    (32) expression -> expression . DIVIDE expression
-    (33) expression -> expression . EQUALS expression
-    (35) expression -> expression . INF NAME INF expression
-    (36) expression -> expression . SUP NAME SUP expression
+    (25) expression_print -> expression . COMMA expression_print
+    (26) expression_print -> expression .
+    (29) expression -> expression . PLUS expression
+    (30) expression -> expression . MINUS expression
+    (31) expression -> expression . TIMES expression
+    (32) expression -> expression . OR expression
+    (33) expression -> expression . AND expression
+    (34) expression -> expression . INF expression
+    (35) expression -> expression . SUP expression
+    (36) expression -> expression . DIVIDE expression
+    (37) expression -> expression . EQUALS expression
+    (39) expression -> expression . INF NAME INF expression
+    (40) expression -> expression . SUP NAME SUP expression
 
+<<<<<<< HEAD
     COMMA           shift and go to state 68
     RPAREN          reduce using rule 24 (expression_print -> expression .)
     PLUS            shift and go to state 43
@@ -863,23 +1410,27 @@ state 40
     SUP             shift and go to state 49
     DIVIDE          shift and go to state 50
     EQUALS          shift and go to state 51
+=======
+    COMMA           shift and go to state 66
+    RPAREN          reduce using rule 26 (expression_print -> expression .)
+    PLUS            shift and go to state 45
+    MINUS           shift and go to state 46
+    TIMES           shift and go to state 47
+    OR              shift and go to state 48
+    AND             shift and go to state 49
+    INF             shift and go to state 50
+    SUP             shift and go to state 51
+    DIVIDE          shift and go to state 52
+    EQUALS          shift and go to state 53
+>>>>>>> test
 
 
 state 41
 
-    (34) expression -> LPAREN expression . RPAREN
-    (25) expression -> expression . PLUS expression
-    (26) expression -> expression . MINUS expression
-    (27) expression -> expression . TIMES expression
-    (28) expression -> expression . OR expression
-    (29) expression -> expression . AND expression
-    (30) expression -> expression . INF expression
-    (31) expression -> expression . SUP expression
-    (32) expression -> expression . DIVIDE expression
-    (33) expression -> expression . EQUALS expression
-    (35) expression -> expression . INF NAME INF expression
-    (36) expression -> expression . SUP NAME SUP expression
+    (27) expression_print -> statement . COMMA expression_print
+    (28) expression_print -> statement .
 
+<<<<<<< HEAD
     RPAREN          shift and go to state 69
     PLUS            shift and go to state 43
     MINUS           shift and go to state 44
@@ -893,6 +1444,47 @@ state 41
 
 
 state 42
+=======
+    COMMA           shift and go to state 67
+    RPAREN          reduce using rule 28 (expression_print -> statement .)
+
+
+state 42
+
+    (21) function_main -> MAIN LPAREN RPAREN . LBRACE bloc RBRACE
+
+    LBRACE          shift and go to state 68
+
+
+state 43
+
+    (38) expression -> LPAREN expression . RPAREN
+    (29) expression -> expression . PLUS expression
+    (30) expression -> expression . MINUS expression
+    (31) expression -> expression . TIMES expression
+    (32) expression -> expression . OR expression
+    (33) expression -> expression . AND expression
+    (34) expression -> expression . INF expression
+    (35) expression -> expression . SUP expression
+    (36) expression -> expression . DIVIDE expression
+    (37) expression -> expression . EQUALS expression
+    (39) expression -> expression . INF NAME INF expression
+    (40) expression -> expression . SUP NAME SUP expression
+
+    RPAREN          shift and go to state 69
+    PLUS            shift and go to state 45
+    MINUS           shift and go to state 46
+    TIMES           shift and go to state 47
+    OR              shift and go to state 48
+    AND             shift and go to state 49
+    INF             shift and go to state 50
+    SUP             shift and go to state 51
+    DIVIDE          shift and go to state 52
+    EQUALS          shift and go to state 53
+
+
+state 44
+>>>>>>> test
 
     (4) statement -> IF LPAREN expression RPAREN . LBRACE bloc RBRACE SEMI
     (5) statement -> IF LPAREN expression RPAREN . LBRACE bloc RBRACE condition
@@ -900,6 +1492,7 @@ state 42
     LBRACE          shift and go to state 70
 
 
+<<<<<<< HEAD
 state 43
 
     (25) expression -> expression PLUS . expression
@@ -1099,11 +1692,35 @@ state 50
     LPAREN          shift and go to state 23
     NUMBER          shift and go to state 26
     NAME            shift and go to state 25
+=======
+state 45
+
+    (29) expression -> expression PLUS . expression
+    (29) expression -> . expression PLUS expression
+    (30) expression -> . expression MINUS expression
+    (31) expression -> . expression TIMES expression
+    (32) expression -> . expression OR expression
+    (33) expression -> . expression AND expression
+    (34) expression -> . expression INF expression
+    (35) expression -> . expression SUP expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression EQUALS expression
+    (38) expression -> . LPAREN expression RPAREN
+    (39) expression -> . expression INF NAME INF expression
+    (40) expression -> . expression SUP NAME SUP expression
+    (42) expression -> . NUMBER
+    (43) expression -> . NAME
+
+    LPAREN          shift and go to state 24
+    NUMBER          shift and go to state 27
+    NAME            shift and go to state 26
+>>>>>>> test
 
     expression                     shift and go to state 80
 
 state 51
 
+<<<<<<< HEAD
     (33) expression -> expression EQUALS . expression
     (25) expression -> . expression PLUS expression
     (26) expression -> . expression MINUS expression
@@ -1124,6 +1741,27 @@ state 51
     LPAREN          shift and go to state 23
     NUMBER          shift and go to state 26
     NAME            shift and go to state 25
+=======
+    (30) expression -> expression MINUS . expression
+    (29) expression -> . expression PLUS expression
+    (30) expression -> . expression MINUS expression
+    (31) expression -> . expression TIMES expression
+    (32) expression -> . expression OR expression
+    (33) expression -> . expression AND expression
+    (34) expression -> . expression INF expression
+    (35) expression -> . expression SUP expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression EQUALS expression
+    (38) expression -> . LPAREN expression RPAREN
+    (39) expression -> . expression INF NAME INF expression
+    (40) expression -> . expression SUP NAME SUP expression
+    (42) expression -> . NUMBER
+    (43) expression -> . NAME
+
+    LPAREN          shift and go to state 24
+    NUMBER          shift and go to state 27
+    NAME            shift and go to state 26
+>>>>>>> test
 
     expression                     shift and go to state 81
 
@@ -1154,27 +1792,51 @@ state 52
 
 state 53
 
-    (7) statement -> WHILE LPAREN expression RPAREN . LBRACE bloc RBRACE SEMI
+    (31) expression -> expression TIMES . expression
+    (29) expression -> . expression PLUS expression
+    (30) expression -> . expression MINUS expression
+    (31) expression -> . expression TIMES expression
+    (32) expression -> . expression OR expression
+    (33) expression -> . expression AND expression
+    (34) expression -> . expression INF expression
+    (35) expression -> . expression SUP expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression EQUALS expression
+    (38) expression -> . LPAREN expression RPAREN
+    (39) expression -> . expression INF NAME INF expression
+    (40) expression -> . expression SUP NAME SUP expression
+    (42) expression -> . NUMBER
+    (43) expression -> . NAME
 
+<<<<<<< HEAD
     LBRACE          shift and go to state 83
+=======
+    LPAREN          shift and go to state 24
+    NUMBER          shift and go to state 27
+    NAME            shift and go to state 26
+>>>>>>> test
 
+    expression                     shift and go to state 73
 
 state 54
 
-    (8) statement -> FOR LPAREN statement expression . SEMI expression RPAREN LBRACE bloc RBRACE SEMI
-    (9) statement -> FOR LPAREN statement expression . SEMI statement RPAREN LBRACE bloc RBRACE SEMI
-    (25) expression -> expression . PLUS expression
-    (26) expression -> expression . MINUS expression
-    (27) expression -> expression . TIMES expression
-    (28) expression -> expression . OR expression
-    (29) expression -> expression . AND expression
-    (30) expression -> expression . INF expression
-    (31) expression -> expression . SUP expression
-    (32) expression -> expression . DIVIDE expression
-    (33) expression -> expression . EQUALS expression
-    (35) expression -> expression . INF NAME INF expression
-    (36) expression -> expression . SUP NAME SUP expression
+    (32) expression -> expression OR . expression
+    (29) expression -> . expression PLUS expression
+    (30) expression -> . expression MINUS expression
+    (31) expression -> . expression TIMES expression
+    (32) expression -> . expression OR expression
+    (33) expression -> . expression AND expression
+    (34) expression -> . expression INF expression
+    (35) expression -> . expression SUP expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression EQUALS expression
+    (38) expression -> . LPAREN expression RPAREN
+    (39) expression -> . expression INF NAME INF expression
+    (40) expression -> . expression SUP NAME SUP expression
+    (42) expression -> . NUMBER
+    (43) expression -> . NAME
 
+<<<<<<< HEAD
     SEMI            shift and go to state 84
     PLUS            shift and go to state 43
     MINUS           shift and go to state 44
@@ -1185,13 +1847,177 @@ state 54
     SUP             shift and go to state 49
     DIVIDE          shift and go to state 50
     EQUALS          shift and go to state 51
+=======
+    LPAREN          shift and go to state 24
+    NUMBER          shift and go to state 27
+    NAME            shift and go to state 26
+>>>>>>> test
+
+    expression                     shift and go to state 74
+
+state 55
+
+    (33) expression -> expression AND . expression
+    (29) expression -> . expression PLUS expression
+    (30) expression -> . expression MINUS expression
+    (31) expression -> . expression TIMES expression
+    (32) expression -> . expression OR expression
+    (33) expression -> . expression AND expression
+    (34) expression -> . expression INF expression
+    (35) expression -> . expression SUP expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression EQUALS expression
+    (38) expression -> . LPAREN expression RPAREN
+    (39) expression -> . expression INF NAME INF expression
+    (40) expression -> . expression SUP NAME SUP expression
+    (42) expression -> . NUMBER
+    (43) expression -> . NAME
+
+    LPAREN          shift and go to state 24
+    NUMBER          shift and go to state 27
+    NAME            shift and go to state 26
+
+    expression                     shift and go to state 75
+
+state 50
+
+    (34) expression -> expression INF . expression
+    (39) expression -> expression INF . NAME INF expression
+    (29) expression -> . expression PLUS expression
+    (30) expression -> . expression MINUS expression
+    (31) expression -> . expression TIMES expression
+    (32) expression -> . expression OR expression
+    (33) expression -> . expression AND expression
+    (34) expression -> . expression INF expression
+    (35) expression -> . expression SUP expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression EQUALS expression
+    (38) expression -> . LPAREN expression RPAREN
+    (39) expression -> . expression INF NAME INF expression
+    (40) expression -> . expression SUP NAME SUP expression
+    (42) expression -> . NUMBER
+    (43) expression -> . NAME
+
+    NAME            shift and go to state 77
+    LPAREN          shift and go to state 24
+    NUMBER          shift and go to state 27
+
+    expression                     shift and go to state 76
+
+state 51
+
+    (35) expression -> expression SUP . expression
+    (40) expression -> expression SUP . NAME SUP expression
+    (29) expression -> . expression PLUS expression
+    (30) expression -> . expression MINUS expression
+    (31) expression -> . expression TIMES expression
+    (32) expression -> . expression OR expression
+    (33) expression -> . expression AND expression
+    (34) expression -> . expression INF expression
+    (35) expression -> . expression SUP expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression EQUALS expression
+    (38) expression -> . LPAREN expression RPAREN
+    (39) expression -> . expression INF NAME INF expression
+    (40) expression -> . expression SUP NAME SUP expression
+    (42) expression -> . NUMBER
+    (43) expression -> . NAME
+
+    NAME            shift and go to state 79
+    LPAREN          shift and go to state 24
+    NUMBER          shift and go to state 27
+
+    expression                     shift and go to state 78
+
+state 52
+
+    (36) expression -> expression DIVIDE . expression
+    (29) expression -> . expression PLUS expression
+    (30) expression -> . expression MINUS expression
+    (31) expression -> . expression TIMES expression
+    (32) expression -> . expression OR expression
+    (33) expression -> . expression AND expression
+    (34) expression -> . expression INF expression
+    (35) expression -> . expression SUP expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression EQUALS expression
+    (38) expression -> . LPAREN expression RPAREN
+    (39) expression -> . expression INF NAME INF expression
+    (40) expression -> . expression SUP NAME SUP expression
+    (42) expression -> . NUMBER
+    (43) expression -> . NAME
+
+    LPAREN          shift and go to state 24
+    NUMBER          shift and go to state 27
+    NAME            shift and go to state 26
+
+    expression                     shift and go to state 80
+
+state 53
+
+    (37) expression -> expression EQUALS . expression
+    (29) expression -> . expression PLUS expression
+    (30) expression -> . expression MINUS expression
+    (31) expression -> . expression TIMES expression
+    (32) expression -> . expression OR expression
+    (33) expression -> . expression AND expression
+    (34) expression -> . expression INF expression
+    (35) expression -> . expression SUP expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression EQUALS expression
+    (38) expression -> . LPAREN expression RPAREN
+    (39) expression -> . expression INF NAME INF expression
+    (40) expression -> . expression SUP NAME SUP expression
+    (42) expression -> . NUMBER
+    (43) expression -> . NAME
+
+    LPAREN          shift and go to state 24
+    NUMBER          shift and go to state 27
+    NAME            shift and go to state 26
+
+    expression                     shift and go to state 81
+
+state 54
+
+    (7) statement -> WHILE LPAREN expression RPAREN . LBRACE bloc RBRACE SEMI
+
+    LBRACE          shift and go to state 82
 
 
 state 55
 
+    (8) statement -> FOR LPAREN statement expression . SEMI expression RPAREN LBRACE bloc RBRACE SEMI
+    (9) statement -> FOR LPAREN statement expression . SEMI statement RPAREN LBRACE bloc RBRACE SEMI
+    (29) expression -> expression . PLUS expression
+    (30) expression -> expression . MINUS expression
+    (31) expression -> expression . TIMES expression
+    (32) expression -> expression . OR expression
+    (33) expression -> expression . AND expression
+    (34) expression -> expression . INF expression
+    (35) expression -> expression . SUP expression
+    (36) expression -> expression . DIVIDE expression
+    (37) expression -> expression . EQUALS expression
+    (39) expression -> expression . INF NAME INF expression
+    (40) expression -> expression . SUP NAME SUP expression
+
+    SEMI            shift and go to state 83
+    PLUS            shift and go to state 45
+    MINUS           shift and go to state 46
+    TIMES           shift and go to state 47
+    OR              shift and go to state 48
+    AND             shift and go to state 49
+    INF             shift and go to state 50
+    SUP             shift and go to state 51
+    DIVIDE          shift and go to state 52
+    EQUALS          shift and go to state 53
+
+
+state 56
+
     (17) parameters_function -> NAME . COMMA parameters_function
     (18) parameters_function -> NAME .
 
+<<<<<<< HEAD
     COMMA           shift and go to state 85
     RPAREN          reduce using rule 18 (parameters_function -> NAME .)
 
@@ -1211,9 +2037,31 @@ state 57
 
 
 state 58
+=======
+    COMMA           shift and go to state 84
+    RPAREN          reduce using rule 18 (parameters_function -> NAME .)
+
+
+state 57
+
+    (10) statement -> VOID NAME LPAREN RPAREN . LBRACE bloc RBRACE SEMI
+
+    LBRACE          shift and go to state 85
+
+
+state 58
+
+    (11) statement -> VOID NAME LPAREN parameters_function . RPAREN LBRACE bloc RBRACE SEMI
+
+    RPAREN          shift and go to state 86
+
+
+state 59
+>>>>>>> test
 
     (12) statement -> NAME LPAREN RPAREN SEMI .
 
+    MAIN            reduce using rule 12 (statement -> NAME LPAREN RPAREN SEMI .)
     IF              reduce using rule 12 (statement -> NAME LPAREN RPAREN SEMI .)
     WHILE           reduce using rule 12 (statement -> NAME LPAREN RPAREN SEMI .)
     FOR             reduce using rule 12 (statement -> NAME LPAREN RPAREN SEMI .)
@@ -1221,14 +2069,15 @@ state 58
     NAME            reduce using rule 12 (statement -> NAME LPAREN RPAREN SEMI .)
     FUNCTION        reduce using rule 12 (statement -> NAME LPAREN RPAREN SEMI .)
     PRINT           reduce using rule 12 (statement -> NAME LPAREN RPAREN SEMI .)
-    $end            reduce using rule 12 (statement -> NAME LPAREN RPAREN SEMI .)
     LPAREN          reduce using rule 12 (statement -> NAME LPAREN RPAREN SEMI .)
     NUMBER          reduce using rule 12 (statement -> NAME LPAREN RPAREN SEMI .)
-    RBRACE          reduce using rule 12 (statement -> NAME LPAREN RPAREN SEMI .)
+    COMMA           reduce using rule 12 (statement -> NAME LPAREN RPAREN SEMI .)
     RPAREN          reduce using rule 12 (statement -> NAME LPAREN RPAREN SEMI .)
+    RBRACE          reduce using rule 12 (statement -> NAME LPAREN RPAREN SEMI .)
     RETURN          reduce using rule 12 (statement -> NAME LPAREN RPAREN SEMI .)
 
 
+<<<<<<< HEAD
 state 59
 
     (13) statement -> NAME LPAREN parameters RPAREN . SEMI
@@ -1237,10 +2086,21 @@ state 59
 
 
 state 60
+=======
+state 60
+
+    (13) statement -> NAME LPAREN parameters RPAREN . SEMI
+
+    SEMI            shift and go to state 87
+
+
+state 61
+>>>>>>> test
 
     (19) parameters -> expression COMMA . parameters
     (19) parameters -> . expression COMMA parameters
     (20) parameters -> . expression
+<<<<<<< HEAD
     (25) expression -> . expression PLUS expression
     (26) expression -> . expression MINUS expression
     (27) expression -> . expression TIMES expression
@@ -1265,24 +2125,51 @@ state 60
     parameters                     shift and go to state 89
 
 state 61
+=======
+    (29) expression -> . expression PLUS expression
+    (30) expression -> . expression MINUS expression
+    (31) expression -> . expression TIMES expression
+    (32) expression -> . expression OR expression
+    (33) expression -> . expression AND expression
+    (34) expression -> . expression INF expression
+    (35) expression -> . expression SUP expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression EQUALS expression
+    (38) expression -> . LPAREN expression RPAREN
+    (39) expression -> . expression INF NAME INF expression
+    (40) expression -> . expression SUP NAME SUP expression
+    (42) expression -> . NUMBER
+    (43) expression -> . NAME
 
-    (21) statement -> NAME EQUAL expression SEMI .
+    LPAREN          shift and go to state 24
+    NUMBER          shift and go to state 27
+    NAME            shift and go to state 26
 
-    IF              reduce using rule 21 (statement -> NAME EQUAL expression SEMI .)
-    WHILE           reduce using rule 21 (statement -> NAME EQUAL expression SEMI .)
-    FOR             reduce using rule 21 (statement -> NAME EQUAL expression SEMI .)
-    VOID            reduce using rule 21 (statement -> NAME EQUAL expression SEMI .)
-    NAME            reduce using rule 21 (statement -> NAME EQUAL expression SEMI .)
-    FUNCTION        reduce using rule 21 (statement -> NAME EQUAL expression SEMI .)
-    PRINT           reduce using rule 21 (statement -> NAME EQUAL expression SEMI .)
-    $end            reduce using rule 21 (statement -> NAME EQUAL expression SEMI .)
-    LPAREN          reduce using rule 21 (statement -> NAME EQUAL expression SEMI .)
-    NUMBER          reduce using rule 21 (statement -> NAME EQUAL expression SEMI .)
-    RBRACE          reduce using rule 21 (statement -> NAME EQUAL expression SEMI .)
-    RPAREN          reduce using rule 21 (statement -> NAME EQUAL expression SEMI .)
-    RETURN          reduce using rule 21 (statement -> NAME EQUAL expression SEMI .)
+    expression                     shift and go to state 33
+    parameters                     shift and go to state 88
+
+state 62
+>>>>>>> test
+
+    (22) statement -> NAME EQUAL expression SEMI .
+
+    MAIN            reduce using rule 22 (statement -> NAME EQUAL expression SEMI .)
+    IF              reduce using rule 22 (statement -> NAME EQUAL expression SEMI .)
+    WHILE           reduce using rule 22 (statement -> NAME EQUAL expression SEMI .)
+    FOR             reduce using rule 22 (statement -> NAME EQUAL expression SEMI .)
+    VOID            reduce using rule 22 (statement -> NAME EQUAL expression SEMI .)
+    NAME            reduce using rule 22 (statement -> NAME EQUAL expression SEMI .)
+    FUNCTION        reduce using rule 22 (statement -> NAME EQUAL expression SEMI .)
+    PRINT           reduce using rule 22 (statement -> NAME EQUAL expression SEMI .)
+    LPAREN          reduce using rule 22 (statement -> NAME EQUAL expression SEMI .)
+    NUMBER          reduce using rule 22 (statement -> NAME EQUAL expression SEMI .)
+    COMMA           reduce using rule 22 (statement -> NAME EQUAL expression SEMI .)
+    RPAREN          reduce using rule 22 (statement -> NAME EQUAL expression SEMI .)
+    RBRACE          reduce using rule 22 (statement -> NAME EQUAL expression SEMI .)
+    RETURN          reduce using rule 22 (statement -> NAME EQUAL expression SEMI .)
 
 
+<<<<<<< HEAD
 state 62
 
     (38) statement -> NAME PLUSEQUAL expression SEMI .
@@ -1331,9 +2218,27 @@ state 66
 
 
 state 67
+=======
+state 63
 
-    (22) statement -> PRINT LPAREN expression_print RPAREN . SEMI
+    (14) statement -> FUNCTION NAME LPAREN RPAREN . LBRACE bloc return_statement RBRACE SEMI
 
+    LBRACE          shift and go to state 89
+
+
+state 64
+
+    (15) statement -> FUNCTION NAME LPAREN parameters_function . RPAREN LBRACE bloc return_statement RBRACE SEMI
+
+    RPAREN          shift and go to state 90
+
+
+state 65
+>>>>>>> test
+
+    (24) statement -> PRINT LPAREN expression_print RPAREN . SEMI
+
+<<<<<<< HEAD
     SEMI            shift and go to state 94
 
 
@@ -1366,9 +2271,100 @@ state 68
     expression_print               shift and go to state 95
 
 state 69
+=======
+    SEMI            shift and go to state 91
 
-    (34) expression -> LPAREN expression RPAREN .
 
+state 66
+
+    (25) expression_print -> expression COMMA . expression_print
+    (25) expression_print -> . expression COMMA expression_print
+    (26) expression_print -> . expression
+    (27) expression_print -> . statement COMMA expression_print
+    (28) expression_print -> . statement
+    (29) expression -> . expression PLUS expression
+    (30) expression -> . expression MINUS expression
+    (31) expression -> . expression TIMES expression
+    (32) expression -> . expression OR expression
+    (33) expression -> . expression AND expression
+    (34) expression -> . expression INF expression
+    (35) expression -> . expression SUP expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression EQUALS expression
+    (38) expression -> . LPAREN expression RPAREN
+    (39) expression -> . expression INF NAME INF expression
+    (40) expression -> . expression SUP NAME SUP expression
+    (42) expression -> . NUMBER
+    (43) expression -> . NAME
+    (4) statement -> . IF LPAREN expression RPAREN LBRACE bloc RBRACE SEMI
+    (5) statement -> . IF LPAREN expression RPAREN LBRACE bloc RBRACE condition
+    (7) statement -> . WHILE LPAREN expression RPAREN LBRACE bloc RBRACE SEMI
+    (8) statement -> . FOR LPAREN statement expression SEMI expression RPAREN LBRACE bloc RBRACE SEMI
+    (9) statement -> . FOR LPAREN statement expression SEMI statement RPAREN LBRACE bloc RBRACE SEMI
+    (10) statement -> . VOID NAME LPAREN RPAREN LBRACE bloc RBRACE SEMI
+    (11) statement -> . VOID NAME LPAREN parameters_function RPAREN LBRACE bloc RBRACE SEMI
+    (12) statement -> . NAME LPAREN RPAREN SEMI
+    (13) statement -> . NAME LPAREN parameters RPAREN SEMI
+    (14) statement -> . FUNCTION NAME LPAREN RPAREN LBRACE bloc return_statement RBRACE SEMI
+    (15) statement -> . FUNCTION NAME LPAREN parameters_function RPAREN LBRACE bloc return_statement RBRACE SEMI
+    (22) statement -> . NAME EQUAL expression SEMI
+    (23) statement -> . NAME EQUAL statement
+    (24) statement -> . PRINT LPAREN expression_print RPAREN SEMI
+    (41) statement -> . NAME PLUSPLUS SEMI
+
+    LPAREN          shift and go to state 24
+    NUMBER          shift and go to state 27
+    NAME            shift and go to state 34
+    IF              shift and go to state 4
+    WHILE           shift and go to state 5
+    FOR             shift and go to state 6
+    VOID            shift and go to state 7
+    FUNCTION        shift and go to state 9
+    PRINT           shift and go to state 10
+
+    expression                     shift and go to state 40
+    expression_print               shift and go to state 92
+    statement                      shift and go to state 41
+
+state 67
+>>>>>>> test
+
+    (27) expression_print -> statement COMMA . expression_print
+    (25) expression_print -> . expression COMMA expression_print
+    (26) expression_print -> . expression
+    (27) expression_print -> . statement COMMA expression_print
+    (28) expression_print -> . statement
+    (29) expression -> . expression PLUS expression
+    (30) expression -> . expression MINUS expression
+    (31) expression -> . expression TIMES expression
+    (32) expression -> . expression OR expression
+    (33) expression -> . expression AND expression
+    (34) expression -> . expression INF expression
+    (35) expression -> . expression SUP expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression EQUALS expression
+    (38) expression -> . LPAREN expression RPAREN
+    (39) expression -> . expression INF NAME INF expression
+    (40) expression -> . expression SUP NAME SUP expression
+    (42) expression -> . NUMBER
+    (43) expression -> . NAME
+    (4) statement -> . IF LPAREN expression RPAREN LBRACE bloc RBRACE SEMI
+    (5) statement -> . IF LPAREN expression RPAREN LBRACE bloc RBRACE condition
+    (7) statement -> . WHILE LPAREN expression RPAREN LBRACE bloc RBRACE SEMI
+    (8) statement -> . FOR LPAREN statement expression SEMI expression RPAREN LBRACE bloc RBRACE SEMI
+    (9) statement -> . FOR LPAREN statement expression SEMI statement RPAREN LBRACE bloc RBRACE SEMI
+    (10) statement -> . VOID NAME LPAREN RPAREN LBRACE bloc RBRACE SEMI
+    (11) statement -> . VOID NAME LPAREN parameters_function RPAREN LBRACE bloc RBRACE SEMI
+    (12) statement -> . NAME LPAREN RPAREN SEMI
+    (13) statement -> . NAME LPAREN parameters RPAREN SEMI
+    (14) statement -> . FUNCTION NAME LPAREN RPAREN LBRACE bloc return_statement RBRACE SEMI
+    (15) statement -> . FUNCTION NAME LPAREN parameters_function RPAREN LBRACE bloc return_statement RBRACE SEMI
+    (22) statement -> . NAME EQUAL expression SEMI
+    (23) statement -> . NAME EQUAL statement
+    (24) statement -> . PRINT LPAREN expression_print RPAREN SEMI
+    (41) statement -> . NAME PLUSPLUS SEMI
+
+<<<<<<< HEAD
     RPAREN          reduce using rule 34 (expression -> LPAREN expression RPAREN .)
     PLUS            reduce using rule 34 (expression -> LPAREN expression RPAREN .)
     MINUS           reduce using rule 34 (expression -> LPAREN expression RPAREN .)
@@ -1382,6 +2378,70 @@ state 69
     COMMA           reduce using rule 34 (expression -> LPAREN expression RPAREN .)
     SEMI            reduce using rule 34 (expression -> LPAREN expression RPAREN .)
     RBRACKET        reduce using rule 34 (expression -> LPAREN expression RPAREN .)
+=======
+    LPAREN          shift and go to state 24
+    NUMBER          shift and go to state 27
+    NAME            shift and go to state 34
+    IF              shift and go to state 4
+    WHILE           shift and go to state 5
+    FOR             shift and go to state 6
+    VOID            shift and go to state 7
+    FUNCTION        shift and go to state 9
+    PRINT           shift and go to state 10
+
+    statement                      shift and go to state 41
+    expression_print               shift and go to state 93
+    expression                     shift and go to state 40
+
+state 68
+
+    (21) function_main -> MAIN LPAREN RPAREN LBRACE . bloc RBRACE
+    (2) bloc -> . bloc statement
+    (3) bloc -> . statement
+    (4) statement -> . IF LPAREN expression RPAREN LBRACE bloc RBRACE SEMI
+    (5) statement -> . IF LPAREN expression RPAREN LBRACE bloc RBRACE condition
+    (7) statement -> . WHILE LPAREN expression RPAREN LBRACE bloc RBRACE SEMI
+    (8) statement -> . FOR LPAREN statement expression SEMI expression RPAREN LBRACE bloc RBRACE SEMI
+    (9) statement -> . FOR LPAREN statement expression SEMI statement RPAREN LBRACE bloc RBRACE SEMI
+    (10) statement -> . VOID NAME LPAREN RPAREN LBRACE bloc RBRACE SEMI
+    (11) statement -> . VOID NAME LPAREN parameters_function RPAREN LBRACE bloc RBRACE SEMI
+    (12) statement -> . NAME LPAREN RPAREN SEMI
+    (13) statement -> . NAME LPAREN parameters RPAREN SEMI
+    (14) statement -> . FUNCTION NAME LPAREN RPAREN LBRACE bloc return_statement RBRACE SEMI
+    (15) statement -> . FUNCTION NAME LPAREN parameters_function RPAREN LBRACE bloc return_statement RBRACE SEMI
+    (22) statement -> . NAME EQUAL expression SEMI
+    (23) statement -> . NAME EQUAL statement
+    (24) statement -> . PRINT LPAREN expression_print RPAREN SEMI
+    (41) statement -> . NAME PLUSPLUS SEMI
+
+    IF              shift and go to state 4
+    WHILE           shift and go to state 5
+    FOR             shift and go to state 6
+    VOID            shift and go to state 7
+    NAME            shift and go to state 8
+    FUNCTION        shift and go to state 9
+    PRINT           shift and go to state 10
+
+    bloc                           shift and go to state 94
+    statement                      shift and go to state 3
+
+state 69
+
+    (38) expression -> LPAREN expression RPAREN .
+
+    RPAREN          reduce using rule 38 (expression -> LPAREN expression RPAREN .)
+    PLUS            reduce using rule 38 (expression -> LPAREN expression RPAREN .)
+    MINUS           reduce using rule 38 (expression -> LPAREN expression RPAREN .)
+    TIMES           reduce using rule 38 (expression -> LPAREN expression RPAREN .)
+    OR              reduce using rule 38 (expression -> LPAREN expression RPAREN .)
+    AND             reduce using rule 38 (expression -> LPAREN expression RPAREN .)
+    INF             reduce using rule 38 (expression -> LPAREN expression RPAREN .)
+    SUP             reduce using rule 38 (expression -> LPAREN expression RPAREN .)
+    DIVIDE          reduce using rule 38 (expression -> LPAREN expression RPAREN .)
+    EQUALS          reduce using rule 38 (expression -> LPAREN expression RPAREN .)
+    COMMA           reduce using rule 38 (expression -> LPAREN expression RPAREN .)
+    SEMI            reduce using rule 38 (expression -> LPAREN expression RPAREN .)
+>>>>>>> test
 
 
 state 70
@@ -1401,12 +2461,19 @@ state 70
     (13) statement -> . NAME LPAREN parameters RPAREN SEMI
     (14) statement -> . FUNCTION NAME LPAREN RPAREN LBRACE bloc return_statement RBRACE SEMI
     (15) statement -> . FUNCTION NAME LPAREN parameters_function RPAREN LBRACE bloc return_statement RBRACE SEMI
+<<<<<<< HEAD
     (21) statement -> . NAME EQUAL expression SEMI
     (22) statement -> . PRINT LPAREN expression_print RPAREN SEMI
     (37) statement -> . NAME PLUSPLUS SEMI
     (38) statement -> . NAME PLUSEQUAL expression SEMI
     (41) statement -> . NAME LBRACKET RBRACKET EQUAL LBRACKET array_values RBRACKET SEMI
     (42) statement -> . NAME LBRACKET expression RBRACKET EQUAL expression SEMI
+=======
+    (22) statement -> . NAME EQUAL expression SEMI
+    (23) statement -> . NAME EQUAL statement
+    (24) statement -> . PRINT LPAREN expression_print RPAREN SEMI
+    (41) statement -> . NAME PLUSPLUS SEMI
+>>>>>>> test
 
     IF              shift and go to state 4
     WHILE           shift and go to state 5
@@ -1416,6 +2483,7 @@ state 70
     FUNCTION        shift and go to state 9
     PRINT           shift and go to state 10
 
+<<<<<<< HEAD
     bloc                           shift and go to state 96
     statement                      shift and go to state 3
 
@@ -1750,20 +2818,27 @@ state 79
 
 
 state 80
+=======
+    bloc                           shift and go to state 95
+    statement                      shift and go to state 3
 
-    (32) expression -> expression DIVIDE expression .
-    (25) expression -> expression . PLUS expression
-    (26) expression -> expression . MINUS expression
-    (27) expression -> expression . TIMES expression
-    (28) expression -> expression . OR expression
-    (29) expression -> expression . AND expression
-    (30) expression -> expression . INF expression
-    (31) expression -> expression . SUP expression
-    (32) expression -> expression . DIVIDE expression
-    (33) expression -> expression . EQUALS expression
-    (35) expression -> expression . INF NAME INF expression
-    (36) expression -> expression . SUP NAME SUP expression
+state 71
+>>>>>>> test
 
+    (29) expression -> expression PLUS expression .
+    (29) expression -> expression . PLUS expression
+    (30) expression -> expression . MINUS expression
+    (31) expression -> expression . TIMES expression
+    (32) expression -> expression . OR expression
+    (33) expression -> expression . AND expression
+    (34) expression -> expression . INF expression
+    (35) expression -> expression . SUP expression
+    (36) expression -> expression . DIVIDE expression
+    (37) expression -> expression . EQUALS expression
+    (39) expression -> expression . INF NAME INF expression
+    (40) expression -> expression . SUP NAME SUP expression
+
+<<<<<<< HEAD
     RPAREN          reduce using rule 32 (expression -> expression DIVIDE expression .)
     PLUS            reduce using rule 32 (expression -> expression DIVIDE expression .)
     MINUS           reduce using rule 32 (expression -> expression DIVIDE expression .)
@@ -1787,22 +2862,363 @@ state 80
   ! SUP             [ shift and go to state 49 ]
   ! DIVIDE          [ shift and go to state 50 ]
   ! EQUALS          [ shift and go to state 51 ]
+=======
+    RPAREN          reduce using rule 29 (expression -> expression PLUS expression .)
+    PLUS            reduce using rule 29 (expression -> expression PLUS expression .)
+    MINUS           reduce using rule 29 (expression -> expression PLUS expression .)
+    OR              reduce using rule 29 (expression -> expression PLUS expression .)
+    AND             reduce using rule 29 (expression -> expression PLUS expression .)
+    INF             reduce using rule 29 (expression -> expression PLUS expression .)
+    SUP             reduce using rule 29 (expression -> expression PLUS expression .)
+    EQUALS          reduce using rule 29 (expression -> expression PLUS expression .)
+    COMMA           reduce using rule 29 (expression -> expression PLUS expression .)
+    SEMI            reduce using rule 29 (expression -> expression PLUS expression .)
+    TIMES           shift and go to state 47
+    DIVIDE          shift and go to state 52
+
+  ! TIMES           [ reduce using rule 29 (expression -> expression PLUS expression .) ]
+  ! DIVIDE          [ reduce using rule 29 (expression -> expression PLUS expression .) ]
+  ! PLUS            [ shift and go to state 45 ]
+  ! MINUS           [ shift and go to state 46 ]
+  ! OR              [ shift and go to state 48 ]
+  ! AND             [ shift and go to state 49 ]
+  ! INF             [ shift and go to state 50 ]
+  ! SUP             [ shift and go to state 51 ]
+  ! EQUALS          [ shift and go to state 53 ]
+>>>>>>> test
 
 
 state 81
 
-    (33) expression -> expression EQUALS expression .
-    (25) expression -> expression . PLUS expression
-    (26) expression -> expression . MINUS expression
-    (27) expression -> expression . TIMES expression
-    (28) expression -> expression . OR expression
-    (29) expression -> expression . AND expression
-    (30) expression -> expression . INF expression
-    (31) expression -> expression . SUP expression
-    (32) expression -> expression . DIVIDE expression
-    (33) expression -> expression . EQUALS expression
-    (35) expression -> expression . INF NAME INF expression
-    (36) expression -> expression . SUP NAME SUP expression
+    (30) expression -> expression MINUS expression .
+    (29) expression -> expression . PLUS expression
+    (30) expression -> expression . MINUS expression
+    (31) expression -> expression . TIMES expression
+    (32) expression -> expression . OR expression
+    (33) expression -> expression . AND expression
+    (34) expression -> expression . INF expression
+    (35) expression -> expression . SUP expression
+    (36) expression -> expression . DIVIDE expression
+    (37) expression -> expression . EQUALS expression
+    (39) expression -> expression . INF NAME INF expression
+    (40) expression -> expression . SUP NAME SUP expression
+
+    RPAREN          reduce using rule 30 (expression -> expression MINUS expression .)
+    PLUS            reduce using rule 30 (expression -> expression MINUS expression .)
+    MINUS           reduce using rule 30 (expression -> expression MINUS expression .)
+    OR              reduce using rule 30 (expression -> expression MINUS expression .)
+    AND             reduce using rule 30 (expression -> expression MINUS expression .)
+    INF             reduce using rule 30 (expression -> expression MINUS expression .)
+    SUP             reduce using rule 30 (expression -> expression MINUS expression .)
+    EQUALS          reduce using rule 30 (expression -> expression MINUS expression .)
+    COMMA           reduce using rule 30 (expression -> expression MINUS expression .)
+    SEMI            reduce using rule 30 (expression -> expression MINUS expression .)
+    TIMES           shift and go to state 47
+    DIVIDE          shift and go to state 52
+
+  ! TIMES           [ reduce using rule 30 (expression -> expression MINUS expression .) ]
+  ! DIVIDE          [ reduce using rule 30 (expression -> expression MINUS expression .) ]
+  ! PLUS            [ shift and go to state 45 ]
+  ! MINUS           [ shift and go to state 46 ]
+  ! OR              [ shift and go to state 48 ]
+  ! AND             [ shift and go to state 49 ]
+  ! INF             [ shift and go to state 50 ]
+  ! SUP             [ shift and go to state 51 ]
+  ! EQUALS          [ shift and go to state 53 ]
+
+
+state 73
+
+    (31) expression -> expression TIMES expression .
+    (29) expression -> expression . PLUS expression
+    (30) expression -> expression . MINUS expression
+    (31) expression -> expression . TIMES expression
+    (32) expression -> expression . OR expression
+    (33) expression -> expression . AND expression
+    (34) expression -> expression . INF expression
+    (35) expression -> expression . SUP expression
+    (36) expression -> expression . DIVIDE expression
+    (37) expression -> expression . EQUALS expression
+    (39) expression -> expression . INF NAME INF expression
+    (40) expression -> expression . SUP NAME SUP expression
+
+    RPAREN          reduce using rule 31 (expression -> expression TIMES expression .)
+    PLUS            reduce using rule 31 (expression -> expression TIMES expression .)
+    MINUS           reduce using rule 31 (expression -> expression TIMES expression .)
+    TIMES           reduce using rule 31 (expression -> expression TIMES expression .)
+    OR              reduce using rule 31 (expression -> expression TIMES expression .)
+    AND             reduce using rule 31 (expression -> expression TIMES expression .)
+    INF             reduce using rule 31 (expression -> expression TIMES expression .)
+    SUP             reduce using rule 31 (expression -> expression TIMES expression .)
+    DIVIDE          reduce using rule 31 (expression -> expression TIMES expression .)
+    EQUALS          reduce using rule 31 (expression -> expression TIMES expression .)
+    COMMA           reduce using rule 31 (expression -> expression TIMES expression .)
+    SEMI            reduce using rule 31 (expression -> expression TIMES expression .)
+
+  ! PLUS            [ shift and go to state 45 ]
+  ! MINUS           [ shift and go to state 46 ]
+  ! TIMES           [ shift and go to state 47 ]
+  ! OR              [ shift and go to state 48 ]
+  ! AND             [ shift and go to state 49 ]
+  ! INF             [ shift and go to state 50 ]
+  ! SUP             [ shift and go to state 51 ]
+  ! DIVIDE          [ shift and go to state 52 ]
+  ! EQUALS          [ shift and go to state 53 ]
+
+
+state 74
+
+    (32) expression -> expression OR expression .
+    (29) expression -> expression . PLUS expression
+    (30) expression -> expression . MINUS expression
+    (31) expression -> expression . TIMES expression
+    (32) expression -> expression . OR expression
+    (33) expression -> expression . AND expression
+    (34) expression -> expression . INF expression
+    (35) expression -> expression . SUP expression
+    (36) expression -> expression . DIVIDE expression
+    (37) expression -> expression . EQUALS expression
+    (39) expression -> expression . INF NAME INF expression
+    (40) expression -> expression . SUP NAME SUP expression
+
+    RPAREN          reduce using rule 32 (expression -> expression OR expression .)
+    OR              reduce using rule 32 (expression -> expression OR expression .)
+    AND             reduce using rule 32 (expression -> expression OR expression .)
+    EQUALS          reduce using rule 32 (expression -> expression OR expression .)
+    COMMA           reduce using rule 32 (expression -> expression OR expression .)
+    SEMI            reduce using rule 32 (expression -> expression OR expression .)
+    PLUS            shift and go to state 45
+    MINUS           shift and go to state 46
+    TIMES           shift and go to state 47
+    INF             shift and go to state 50
+    SUP             shift and go to state 51
+    DIVIDE          shift and go to state 52
+
+  ! PLUS            [ reduce using rule 32 (expression -> expression OR expression .) ]
+  ! MINUS           [ reduce using rule 32 (expression -> expression OR expression .) ]
+  ! TIMES           [ reduce using rule 32 (expression -> expression OR expression .) ]
+  ! INF             [ reduce using rule 32 (expression -> expression OR expression .) ]
+  ! SUP             [ reduce using rule 32 (expression -> expression OR expression .) ]
+  ! DIVIDE          [ reduce using rule 32 (expression -> expression OR expression .) ]
+  ! OR              [ shift and go to state 48 ]
+  ! AND             [ shift and go to state 49 ]
+  ! EQUALS          [ shift and go to state 53 ]
+
+
+state 75
+
+    (33) expression -> expression AND expression .
+    (29) expression -> expression . PLUS expression
+    (30) expression -> expression . MINUS expression
+    (31) expression -> expression . TIMES expression
+    (32) expression -> expression . OR expression
+    (33) expression -> expression . AND expression
+    (34) expression -> expression . INF expression
+    (35) expression -> expression . SUP expression
+    (36) expression -> expression . DIVIDE expression
+    (37) expression -> expression . EQUALS expression
+    (39) expression -> expression . INF NAME INF expression
+    (40) expression -> expression . SUP NAME SUP expression
+
+    RPAREN          reduce using rule 33 (expression -> expression AND expression .)
+    OR              reduce using rule 33 (expression -> expression AND expression .)
+    AND             reduce using rule 33 (expression -> expression AND expression .)
+    EQUALS          reduce using rule 33 (expression -> expression AND expression .)
+    COMMA           reduce using rule 33 (expression -> expression AND expression .)
+    SEMI            reduce using rule 33 (expression -> expression AND expression .)
+    PLUS            shift and go to state 45
+    MINUS           shift and go to state 46
+    TIMES           shift and go to state 47
+    INF             shift and go to state 50
+    SUP             shift and go to state 51
+    DIVIDE          shift and go to state 52
+
+  ! PLUS            [ reduce using rule 33 (expression -> expression AND expression .) ]
+  ! MINUS           [ reduce using rule 33 (expression -> expression AND expression .) ]
+  ! TIMES           [ reduce using rule 33 (expression -> expression AND expression .) ]
+  ! INF             [ reduce using rule 33 (expression -> expression AND expression .) ]
+  ! SUP             [ reduce using rule 33 (expression -> expression AND expression .) ]
+  ! DIVIDE          [ reduce using rule 33 (expression -> expression AND expression .) ]
+  ! OR              [ shift and go to state 48 ]
+  ! AND             [ shift and go to state 49 ]
+  ! EQUALS          [ shift and go to state 53 ]
+
+
+state 76
+
+    (34) expression -> expression INF expression .
+    (29) expression -> expression . PLUS expression
+    (30) expression -> expression . MINUS expression
+    (31) expression -> expression . TIMES expression
+    (32) expression -> expression . OR expression
+    (33) expression -> expression . AND expression
+    (34) expression -> expression . INF expression
+    (35) expression -> expression . SUP expression
+    (36) expression -> expression . DIVIDE expression
+    (37) expression -> expression . EQUALS expression
+    (39) expression -> expression . INF NAME INF expression
+    (40) expression -> expression . SUP NAME SUP expression
+
+    RPAREN          reduce using rule 34 (expression -> expression INF expression .)
+    OR              reduce using rule 34 (expression -> expression INF expression .)
+    AND             reduce using rule 34 (expression -> expression INF expression .)
+    EQUALS          reduce using rule 34 (expression -> expression INF expression .)
+    COMMA           reduce using rule 34 (expression -> expression INF expression .)
+    SEMI            reduce using rule 34 (expression -> expression INF expression .)
+    PLUS            shift and go to state 45
+    MINUS           shift and go to state 46
+    TIMES           shift and go to state 47
+    DIVIDE          shift and go to state 52
+    INF             shift and go to state 50
+    SUP             shift and go to state 51
+
+  ! PLUS            [ reduce using rule 34 (expression -> expression INF expression .) ]
+  ! MINUS           [ reduce using rule 34 (expression -> expression INF expression .) ]
+  ! TIMES           [ reduce using rule 34 (expression -> expression INF expression .) ]
+  ! INF             [ reduce using rule 34 (expression -> expression INF expression .) ]
+  ! SUP             [ reduce using rule 34 (expression -> expression INF expression .) ]
+  ! DIVIDE          [ reduce using rule 34 (expression -> expression INF expression .) ]
+  ! OR              [ shift and go to state 48 ]
+  ! AND             [ shift and go to state 49 ]
+  ! EQUALS          [ shift and go to state 53 ]
+
+
+state 77
+
+    (39) expression -> expression INF NAME . INF expression
+    (43) expression -> NAME .
+
+  ! shift/reduce conflict for INF resolved as shift
+    INF             shift and go to state 96
+    PLUS            reduce using rule 43 (expression -> NAME .)
+    MINUS           reduce using rule 43 (expression -> NAME .)
+    TIMES           reduce using rule 43 (expression -> NAME .)
+    OR              reduce using rule 43 (expression -> NAME .)
+    AND             reduce using rule 43 (expression -> NAME .)
+    SUP             reduce using rule 43 (expression -> NAME .)
+    DIVIDE          reduce using rule 43 (expression -> NAME .)
+    EQUALS          reduce using rule 43 (expression -> NAME .)
+    RPAREN          reduce using rule 43 (expression -> NAME .)
+    COMMA           reduce using rule 43 (expression -> NAME .)
+    SEMI            reduce using rule 43 (expression -> NAME .)
+
+  ! INF             [ reduce using rule 43 (expression -> NAME .) ]
+
+
+state 78
+
+    (35) expression -> expression SUP expression .
+    (29) expression -> expression . PLUS expression
+    (30) expression -> expression . MINUS expression
+    (31) expression -> expression . TIMES expression
+    (32) expression -> expression . OR expression
+    (33) expression -> expression . AND expression
+    (34) expression -> expression . INF expression
+    (35) expression -> expression . SUP expression
+    (36) expression -> expression . DIVIDE expression
+    (37) expression -> expression . EQUALS expression
+    (39) expression -> expression . INF NAME INF expression
+    (40) expression -> expression . SUP NAME SUP expression
+
+    RPAREN          reduce using rule 35 (expression -> expression SUP expression .)
+    OR              reduce using rule 35 (expression -> expression SUP expression .)
+    AND             reduce using rule 35 (expression -> expression SUP expression .)
+    EQUALS          reduce using rule 35 (expression -> expression SUP expression .)
+    COMMA           reduce using rule 35 (expression -> expression SUP expression .)
+    SEMI            reduce using rule 35 (expression -> expression SUP expression .)
+    PLUS            shift and go to state 45
+    MINUS           shift and go to state 46
+    TIMES           shift and go to state 47
+    DIVIDE          shift and go to state 52
+    INF             shift and go to state 50
+    SUP             shift and go to state 51
+
+  ! PLUS            [ reduce using rule 35 (expression -> expression SUP expression .) ]
+  ! MINUS           [ reduce using rule 35 (expression -> expression SUP expression .) ]
+  ! TIMES           [ reduce using rule 35 (expression -> expression SUP expression .) ]
+  ! INF             [ reduce using rule 35 (expression -> expression SUP expression .) ]
+  ! SUP             [ reduce using rule 35 (expression -> expression SUP expression .) ]
+  ! DIVIDE          [ reduce using rule 35 (expression -> expression SUP expression .) ]
+  ! OR              [ shift and go to state 48 ]
+  ! AND             [ shift and go to state 49 ]
+  ! EQUALS          [ shift and go to state 53 ]
+
+
+state 79
+
+    (40) expression -> expression SUP NAME . SUP expression
+    (43) expression -> NAME .
+
+  ! shift/reduce conflict for SUP resolved as shift
+    SUP             shift and go to state 97
+    PLUS            reduce using rule 43 (expression -> NAME .)
+    MINUS           reduce using rule 43 (expression -> NAME .)
+    TIMES           reduce using rule 43 (expression -> NAME .)
+    OR              reduce using rule 43 (expression -> NAME .)
+    AND             reduce using rule 43 (expression -> NAME .)
+    INF             reduce using rule 43 (expression -> NAME .)
+    DIVIDE          reduce using rule 43 (expression -> NAME .)
+    EQUALS          reduce using rule 43 (expression -> NAME .)
+    RPAREN          reduce using rule 43 (expression -> NAME .)
+    COMMA           reduce using rule 43 (expression -> NAME .)
+    SEMI            reduce using rule 43 (expression -> NAME .)
+
+  ! SUP             [ reduce using rule 43 (expression -> NAME .) ]
+
+
+state 80
+
+    (36) expression -> expression DIVIDE expression .
+    (29) expression -> expression . PLUS expression
+    (30) expression -> expression . MINUS expression
+    (31) expression -> expression . TIMES expression
+    (32) expression -> expression . OR expression
+    (33) expression -> expression . AND expression
+    (34) expression -> expression . INF expression
+    (35) expression -> expression . SUP expression
+    (36) expression -> expression . DIVIDE expression
+    (37) expression -> expression . EQUALS expression
+    (39) expression -> expression . INF NAME INF expression
+    (40) expression -> expression . SUP NAME SUP expression
+
+    RPAREN          reduce using rule 36 (expression -> expression DIVIDE expression .)
+    PLUS            reduce using rule 36 (expression -> expression DIVIDE expression .)
+    MINUS           reduce using rule 36 (expression -> expression DIVIDE expression .)
+    TIMES           reduce using rule 36 (expression -> expression DIVIDE expression .)
+    OR              reduce using rule 36 (expression -> expression DIVIDE expression .)
+    AND             reduce using rule 36 (expression -> expression DIVIDE expression .)
+    INF             reduce using rule 36 (expression -> expression DIVIDE expression .)
+    SUP             reduce using rule 36 (expression -> expression DIVIDE expression .)
+    DIVIDE          reduce using rule 36 (expression -> expression DIVIDE expression .)
+    EQUALS          reduce using rule 36 (expression -> expression DIVIDE expression .)
+    COMMA           reduce using rule 36 (expression -> expression DIVIDE expression .)
+    SEMI            reduce using rule 36 (expression -> expression DIVIDE expression .)
+
+  ! PLUS            [ shift and go to state 45 ]
+  ! MINUS           [ shift and go to state 46 ]
+  ! TIMES           [ shift and go to state 47 ]
+  ! OR              [ shift and go to state 48 ]
+  ! AND             [ shift and go to state 49 ]
+  ! INF             [ shift and go to state 50 ]
+  ! SUP             [ shift and go to state 51 ]
+  ! DIVIDE          [ shift and go to state 52 ]
+  ! EQUALS          [ shift and go to state 53 ]
+
+
+state 81
+
+    (37) expression -> expression EQUALS expression .
+    (29) expression -> expression . PLUS expression
+    (30) expression -> expression . MINUS expression
+    (31) expression -> expression . TIMES expression
+    (32) expression -> expression . OR expression
+    (33) expression -> expression . AND expression
+    (34) expression -> expression . INF expression
+    (35) expression -> expression . SUP expression
+    (36) expression -> expression . DIVIDE expression
+    (37) expression -> expression . EQUALS expression
+    (39) expression -> expression . INF NAME INF expression
+    (40) expression -> expression . SUP NAME SUP expression
 
   ! shift/reduce conflict for PLUS resolved as shift
   ! shift/reduce conflict for MINUS resolved as shift
@@ -1813,6 +3229,7 @@ state 81
   ! shift/reduce conflict for SUP resolved as shift
   ! shift/reduce conflict for DIVIDE resolved as shift
   ! shift/reduce conflict for EQUALS resolved as shift
+<<<<<<< HEAD
     RPAREN          reduce using rule 33 (expression -> expression EQUALS expression .)
     COMMA           reduce using rule 33 (expression -> expression EQUALS expression .)
     SEMI            reduce using rule 33 (expression -> expression EQUALS expression .)
@@ -1826,19 +3243,34 @@ state 81
     SUP             shift and go to state 49
     DIVIDE          shift and go to state 50
     EQUALS          shift and go to state 51
+=======
+    RPAREN          reduce using rule 37 (expression -> expression EQUALS expression .)
+    COMMA           reduce using rule 37 (expression -> expression EQUALS expression .)
+    SEMI            reduce using rule 37 (expression -> expression EQUALS expression .)
+    PLUS            shift and go to state 45
+    MINUS           shift and go to state 46
+    TIMES           shift and go to state 47
+    OR              shift and go to state 48
+    AND             shift and go to state 49
+    INF             shift and go to state 50
+    SUP             shift and go to state 51
+    DIVIDE          shift and go to state 52
+    EQUALS          shift and go to state 53
+>>>>>>> test
 
-  ! PLUS            [ reduce using rule 33 (expression -> expression EQUALS expression .) ]
-  ! MINUS           [ reduce using rule 33 (expression -> expression EQUALS expression .) ]
-  ! TIMES           [ reduce using rule 33 (expression -> expression EQUALS expression .) ]
-  ! OR              [ reduce using rule 33 (expression -> expression EQUALS expression .) ]
-  ! AND             [ reduce using rule 33 (expression -> expression EQUALS expression .) ]
-  ! INF             [ reduce using rule 33 (expression -> expression EQUALS expression .) ]
-  ! SUP             [ reduce using rule 33 (expression -> expression EQUALS expression .) ]
-  ! DIVIDE          [ reduce using rule 33 (expression -> expression EQUALS expression .) ]
-  ! EQUALS          [ reduce using rule 33 (expression -> expression EQUALS expression .) ]
+  ! PLUS            [ reduce using rule 37 (expression -> expression EQUALS expression .) ]
+  ! MINUS           [ reduce using rule 37 (expression -> expression EQUALS expression .) ]
+  ! TIMES           [ reduce using rule 37 (expression -> expression EQUALS expression .) ]
+  ! OR              [ reduce using rule 37 (expression -> expression EQUALS expression .) ]
+  ! AND             [ reduce using rule 37 (expression -> expression EQUALS expression .) ]
+  ! INF             [ reduce using rule 37 (expression -> expression EQUALS expression .) ]
+  ! SUP             [ reduce using rule 37 (expression -> expression EQUALS expression .) ]
+  ! DIVIDE          [ reduce using rule 37 (expression -> expression EQUALS expression .) ]
+  ! EQUALS          [ reduce using rule 37 (expression -> expression EQUALS expression .) ]
 
 
 state 82
+<<<<<<< HEAD
 
     (43) expression -> NAME LBRACKET expression . RBRACKET
     (25) expression -> expression . PLUS expression
@@ -1866,6 +3298,8 @@ state 82
 
 
 state 83
+=======
+>>>>>>> test
 
     (7) statement -> WHILE LPAREN expression RPAREN LBRACE . bloc RBRACE SEMI
     (2) bloc -> . bloc statement
@@ -1881,12 +3315,19 @@ state 83
     (13) statement -> . NAME LPAREN parameters RPAREN SEMI
     (14) statement -> . FUNCTION NAME LPAREN RPAREN LBRACE bloc return_statement RBRACE SEMI
     (15) statement -> . FUNCTION NAME LPAREN parameters_function RPAREN LBRACE bloc return_statement RBRACE SEMI
+<<<<<<< HEAD
     (21) statement -> . NAME EQUAL expression SEMI
     (22) statement -> . PRINT LPAREN expression_print RPAREN SEMI
     (37) statement -> . NAME PLUSPLUS SEMI
     (38) statement -> . NAME PLUSEQUAL expression SEMI
     (41) statement -> . NAME LBRACKET RBRACKET EQUAL LBRACKET array_values RBRACKET SEMI
     (42) statement -> . NAME LBRACKET expression RBRACKET EQUAL expression SEMI
+=======
+    (22) statement -> . NAME EQUAL expression SEMI
+    (23) statement -> . NAME EQUAL statement
+    (24) statement -> . PRINT LPAREN expression_print RPAREN SEMI
+    (41) statement -> . NAME PLUSPLUS SEMI
+>>>>>>> test
 
     IF              shift and go to state 4
     WHILE           shift and go to state 5
@@ -1896,6 +3337,7 @@ state 83
     FUNCTION        shift and go to state 9
     PRINT           shift and go to state 10
 
+<<<<<<< HEAD
     bloc                           shift and go to state 100
     statement                      shift and go to state 3
 
@@ -1918,6 +3360,29 @@ state 84
     (39) expression -> . NUMBER
     (40) expression -> . NAME
     (43) expression -> . NAME LBRACKET expression RBRACKET
+=======
+    bloc                           shift and go to state 98
+    statement                      shift and go to state 3
+
+state 83
+
+    (8) statement -> FOR LPAREN statement expression SEMI . expression RPAREN LBRACE bloc RBRACE SEMI
+    (9) statement -> FOR LPAREN statement expression SEMI . statement RPAREN LBRACE bloc RBRACE SEMI
+    (29) expression -> . expression PLUS expression
+    (30) expression -> . expression MINUS expression
+    (31) expression -> . expression TIMES expression
+    (32) expression -> . expression OR expression
+    (33) expression -> . expression AND expression
+    (34) expression -> . expression INF expression
+    (35) expression -> . expression SUP expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression EQUALS expression
+    (38) expression -> . LPAREN expression RPAREN
+    (39) expression -> . expression INF NAME INF expression
+    (40) expression -> . expression SUP NAME SUP expression
+    (42) expression -> . NUMBER
+    (43) expression -> . NAME
+>>>>>>> test
     (4) statement -> . IF LPAREN expression RPAREN LBRACE bloc RBRACE SEMI
     (5) statement -> . IF LPAREN expression RPAREN LBRACE bloc RBRACE condition
     (7) statement -> . WHILE LPAREN expression RPAREN LBRACE bloc RBRACE SEMI
@@ -1929,6 +3394,7 @@ state 84
     (13) statement -> . NAME LPAREN parameters RPAREN SEMI
     (14) statement -> . FUNCTION NAME LPAREN RPAREN LBRACE bloc return_statement RBRACE SEMI
     (15) statement -> . FUNCTION NAME LPAREN parameters_function RPAREN LBRACE bloc return_statement RBRACE SEMI
+<<<<<<< HEAD
     (21) statement -> . NAME EQUAL expression SEMI
     (22) statement -> . PRINT LPAREN expression_print RPAREN SEMI
     (37) statement -> . NAME PLUSPLUS SEMI
@@ -1939,6 +3405,16 @@ state 84
     LPAREN          shift and go to state 23
     NUMBER          shift and go to state 26
     NAME            shift and go to state 103
+=======
+    (22) statement -> . NAME EQUAL expression SEMI
+    (23) statement -> . NAME EQUAL statement
+    (24) statement -> . PRINT LPAREN expression_print RPAREN SEMI
+    (41) statement -> . NAME PLUSPLUS SEMI
+
+    LPAREN          shift and go to state 24
+    NUMBER          shift and go to state 27
+    NAME            shift and go to state 34
+>>>>>>> test
     IF              shift and go to state 4
     WHILE           shift and go to state 5
     FOR             shift and go to state 6
@@ -1946,20 +3422,35 @@ state 84
     FUNCTION        shift and go to state 9
     PRINT           shift and go to state 10
 
+<<<<<<< HEAD
     statement                      shift and go to state 101
     expression                     shift and go to state 102
 
 state 85
+=======
+    statement                      shift and go to state 99
+    expression                     shift and go to state 100
+
+state 84
+>>>>>>> test
 
     (17) parameters_function -> NAME COMMA . parameters_function
     (17) parameters_function -> . NAME COMMA parameters_function
     (18) parameters_function -> . NAME
 
+<<<<<<< HEAD
     NAME            shift and go to state 55
 
     parameters_function            shift and go to state 104
 
 state 86
+=======
+    NAME            shift and go to state 56
+
+    parameters_function            shift and go to state 101
+
+state 85
+>>>>>>> test
 
     (10) statement -> VOID NAME LPAREN RPAREN LBRACE . bloc RBRACE SEMI
     (2) bloc -> . bloc statement
@@ -1975,12 +3466,19 @@ state 86
     (13) statement -> . NAME LPAREN parameters RPAREN SEMI
     (14) statement -> . FUNCTION NAME LPAREN RPAREN LBRACE bloc return_statement RBRACE SEMI
     (15) statement -> . FUNCTION NAME LPAREN parameters_function RPAREN LBRACE bloc return_statement RBRACE SEMI
+<<<<<<< HEAD
     (21) statement -> . NAME EQUAL expression SEMI
     (22) statement -> . PRINT LPAREN expression_print RPAREN SEMI
     (37) statement -> . NAME PLUSPLUS SEMI
     (38) statement -> . NAME PLUSEQUAL expression SEMI
     (41) statement -> . NAME LBRACKET RBRACKET EQUAL LBRACKET array_values RBRACKET SEMI
     (42) statement -> . NAME LBRACKET expression RBRACKET EQUAL expression SEMI
+=======
+    (22) statement -> . NAME EQUAL expression SEMI
+    (23) statement -> . NAME EQUAL statement
+    (24) statement -> . PRINT LPAREN expression_print RPAREN SEMI
+    (41) statement -> . NAME PLUSPLUS SEMI
+>>>>>>> test
 
     IF              shift and go to state 4
     WHILE           shift and go to state 5
@@ -1990,6 +3488,7 @@ state 86
     FUNCTION        shift and go to state 9
     PRINT           shift and go to state 10
 
+<<<<<<< HEAD
     bloc                           shift and go to state 105
     statement                      shift and go to state 3
 
@@ -2001,9 +3500,23 @@ state 87
 
 
 state 88
+=======
+    bloc                           shift and go to state 102
+    statement                      shift and go to state 3
+
+state 86
+
+    (11) statement -> VOID NAME LPAREN parameters_function RPAREN . LBRACE bloc RBRACE SEMI
+
+    LBRACE          shift and go to state 103
+
+
+state 87
+>>>>>>> test
 
     (13) statement -> NAME LPAREN parameters RPAREN SEMI .
 
+    MAIN            reduce using rule 13 (statement -> NAME LPAREN parameters RPAREN SEMI .)
     IF              reduce using rule 13 (statement -> NAME LPAREN parameters RPAREN SEMI .)
     WHILE           reduce using rule 13 (statement -> NAME LPAREN parameters RPAREN SEMI .)
     FOR             reduce using rule 13 (statement -> NAME LPAREN parameters RPAREN SEMI .)
@@ -2011,21 +3524,26 @@ state 88
     NAME            reduce using rule 13 (statement -> NAME LPAREN parameters RPAREN SEMI .)
     FUNCTION        reduce using rule 13 (statement -> NAME LPAREN parameters RPAREN SEMI .)
     PRINT           reduce using rule 13 (statement -> NAME LPAREN parameters RPAREN SEMI .)
-    $end            reduce using rule 13 (statement -> NAME LPAREN parameters RPAREN SEMI .)
     LPAREN          reduce using rule 13 (statement -> NAME LPAREN parameters RPAREN SEMI .)
     NUMBER          reduce using rule 13 (statement -> NAME LPAREN parameters RPAREN SEMI .)
-    RBRACE          reduce using rule 13 (statement -> NAME LPAREN parameters RPAREN SEMI .)
+    COMMA           reduce using rule 13 (statement -> NAME LPAREN parameters RPAREN SEMI .)
     RPAREN          reduce using rule 13 (statement -> NAME LPAREN parameters RPAREN SEMI .)
+    RBRACE          reduce using rule 13 (statement -> NAME LPAREN parameters RPAREN SEMI .)
     RETURN          reduce using rule 13 (statement -> NAME LPAREN parameters RPAREN SEMI .)
 
 
+<<<<<<< HEAD
 state 89
+=======
+state 88
+>>>>>>> test
 
     (19) parameters -> expression COMMA parameters .
 
     RPAREN          reduce using rule 19 (parameters -> expression COMMA parameters .)
 
 
+<<<<<<< HEAD
 state 90
 
     (41) statement -> NAME LBRACKET RBRACKET EQUAL LBRACKET . array_values RBRACKET SEMI
@@ -2080,6 +3598,9 @@ state 91
     expression                     shift and go to state 109
 
 state 92
+=======
+state 89
+>>>>>>> test
 
     (14) statement -> FUNCTION NAME LPAREN RPAREN LBRACE . bloc return_statement RBRACE SEMI
     (2) bloc -> . bloc statement
@@ -2095,12 +3616,19 @@ state 92
     (13) statement -> . NAME LPAREN parameters RPAREN SEMI
     (14) statement -> . FUNCTION NAME LPAREN RPAREN LBRACE bloc return_statement RBRACE SEMI
     (15) statement -> . FUNCTION NAME LPAREN parameters_function RPAREN LBRACE bloc return_statement RBRACE SEMI
+<<<<<<< HEAD
     (21) statement -> . NAME EQUAL expression SEMI
     (22) statement -> . PRINT LPAREN expression_print RPAREN SEMI
     (37) statement -> . NAME PLUSPLUS SEMI
     (38) statement -> . NAME PLUSEQUAL expression SEMI
     (41) statement -> . NAME LBRACKET RBRACKET EQUAL LBRACKET array_values RBRACKET SEMI
     (42) statement -> . NAME LBRACKET expression RBRACKET EQUAL expression SEMI
+=======
+    (22) statement -> . NAME EQUAL expression SEMI
+    (23) statement -> . NAME EQUAL statement
+    (24) statement -> . PRINT LPAREN expression_print RPAREN SEMI
+    (41) statement -> . NAME PLUSPLUS SEMI
+>>>>>>> test
 
     IF              shift and go to state 4
     WHILE           shift and go to state 5
@@ -2110,6 +3638,7 @@ state 92
     FUNCTION        shift and go to state 9
     PRINT           shift and go to state 10
 
+<<<<<<< HEAD
     bloc                           shift and go to state 110
     statement                      shift and go to state 3
 
@@ -2121,32 +3650,92 @@ state 93
 
 
 state 94
+=======
+    bloc                           shift and go to state 104
+    statement                      shift and go to state 3
 
-    (22) statement -> PRINT LPAREN expression_print RPAREN SEMI .
+state 90
 
-    IF              reduce using rule 22 (statement -> PRINT LPAREN expression_print RPAREN SEMI .)
-    WHILE           reduce using rule 22 (statement -> PRINT LPAREN expression_print RPAREN SEMI .)
-    FOR             reduce using rule 22 (statement -> PRINT LPAREN expression_print RPAREN SEMI .)
-    VOID            reduce using rule 22 (statement -> PRINT LPAREN expression_print RPAREN SEMI .)
-    NAME            reduce using rule 22 (statement -> PRINT LPAREN expression_print RPAREN SEMI .)
-    FUNCTION        reduce using rule 22 (statement -> PRINT LPAREN expression_print RPAREN SEMI .)
-    PRINT           reduce using rule 22 (statement -> PRINT LPAREN expression_print RPAREN SEMI .)
-    $end            reduce using rule 22 (statement -> PRINT LPAREN expression_print RPAREN SEMI .)
-    LPAREN          reduce using rule 22 (statement -> PRINT LPAREN expression_print RPAREN SEMI .)
-    NUMBER          reduce using rule 22 (statement -> PRINT LPAREN expression_print RPAREN SEMI .)
-    RBRACE          reduce using rule 22 (statement -> PRINT LPAREN expression_print RPAREN SEMI .)
-    RPAREN          reduce using rule 22 (statement -> PRINT LPAREN expression_print RPAREN SEMI .)
-    RETURN          reduce using rule 22 (statement -> PRINT LPAREN expression_print RPAREN SEMI .)
+    (15) statement -> FUNCTION NAME LPAREN parameters_function RPAREN . LBRACE bloc return_statement RBRACE SEMI
 
+    LBRACE          shift and go to state 105
+
+
+state 91
+>>>>>>> test
+
+    (24) statement -> PRINT LPAREN expression_print RPAREN SEMI .
+
+    MAIN            reduce using rule 24 (statement -> PRINT LPAREN expression_print RPAREN SEMI .)
+    IF              reduce using rule 24 (statement -> PRINT LPAREN expression_print RPAREN SEMI .)
+    WHILE           reduce using rule 24 (statement -> PRINT LPAREN expression_print RPAREN SEMI .)
+    FOR             reduce using rule 24 (statement -> PRINT LPAREN expression_print RPAREN SEMI .)
+    VOID            reduce using rule 24 (statement -> PRINT LPAREN expression_print RPAREN SEMI .)
+    NAME            reduce using rule 24 (statement -> PRINT LPAREN expression_print RPAREN SEMI .)
+    FUNCTION        reduce using rule 24 (statement -> PRINT LPAREN expression_print RPAREN SEMI .)
+    PRINT           reduce using rule 24 (statement -> PRINT LPAREN expression_print RPAREN SEMI .)
+    LPAREN          reduce using rule 24 (statement -> PRINT LPAREN expression_print RPAREN SEMI .)
+    NUMBER          reduce using rule 24 (statement -> PRINT LPAREN expression_print RPAREN SEMI .)
+    COMMA           reduce using rule 24 (statement -> PRINT LPAREN expression_print RPAREN SEMI .)
+    RPAREN          reduce using rule 24 (statement -> PRINT LPAREN expression_print RPAREN SEMI .)
+    RBRACE          reduce using rule 24 (statement -> PRINT LPAREN expression_print RPAREN SEMI .)
+    RETURN          reduce using rule 24 (statement -> PRINT LPAREN expression_print RPAREN SEMI .)
+
+
+<<<<<<< HEAD
+state 95
+=======
+state 92
+>>>>>>> test
+
+    (25) expression_print -> expression COMMA expression_print .
+
+    RPAREN          reduce using rule 25 (expression_print -> expression COMMA expression_print .)
+
+
+<<<<<<< HEAD
+state 96
+=======
+state 93
+
+    (27) expression_print -> statement COMMA expression_print .
+
+    RPAREN          reduce using rule 27 (expression_print -> statement COMMA expression_print .)
+
+
+state 94
+
+    (21) function_main -> MAIN LPAREN RPAREN LBRACE bloc . RBRACE
+    (2) bloc -> bloc . statement
+    (4) statement -> . IF LPAREN expression RPAREN LBRACE bloc RBRACE SEMI
+    (5) statement -> . IF LPAREN expression RPAREN LBRACE bloc RBRACE condition
+    (7) statement -> . WHILE LPAREN expression RPAREN LBRACE bloc RBRACE SEMI
+    (8) statement -> . FOR LPAREN statement expression SEMI expression RPAREN LBRACE bloc RBRACE SEMI
+    (9) statement -> . FOR LPAREN statement expression SEMI statement RPAREN LBRACE bloc RBRACE SEMI
+    (10) statement -> . VOID NAME LPAREN RPAREN LBRACE bloc RBRACE SEMI
+    (11) statement -> . VOID NAME LPAREN parameters_function RPAREN LBRACE bloc RBRACE SEMI
+    (12) statement -> . NAME LPAREN RPAREN SEMI
+    (13) statement -> . NAME LPAREN parameters RPAREN SEMI
+    (14) statement -> . FUNCTION NAME LPAREN RPAREN LBRACE bloc return_statement RBRACE SEMI
+    (15) statement -> . FUNCTION NAME LPAREN parameters_function RPAREN LBRACE bloc return_statement RBRACE SEMI
+    (22) statement -> . NAME EQUAL expression SEMI
+    (23) statement -> . NAME EQUAL statement
+    (24) statement -> . PRINT LPAREN expression_print RPAREN SEMI
+    (41) statement -> . NAME PLUSPLUS SEMI
+
+    RBRACE          shift and go to state 106
+    IF              shift and go to state 4
+    WHILE           shift and go to state 5
+    FOR             shift and go to state 6
+    VOID            shift and go to state 7
+    NAME            shift and go to state 8
+    FUNCTION        shift and go to state 9
+    PRINT           shift and go to state 10
+
+    statement                      shift and go to state 12
 
 state 95
-
-    (23) expression_print -> expression COMMA expression_print .
-
-    RPAREN          reduce using rule 23 (expression_print -> expression COMMA expression_print .)
-
-
-state 96
+>>>>>>> test
 
     (4) statement -> IF LPAREN expression RPAREN LBRACE bloc . RBRACE SEMI
     (5) statement -> IF LPAREN expression RPAREN LBRACE bloc . RBRACE condition
@@ -2162,6 +3751,7 @@ state 96
     (13) statement -> . NAME LPAREN parameters RPAREN SEMI
     (14) statement -> . FUNCTION NAME LPAREN RPAREN LBRACE bloc return_statement RBRACE SEMI
     (15) statement -> . FUNCTION NAME LPAREN parameters_function RPAREN LBRACE bloc return_statement RBRACE SEMI
+<<<<<<< HEAD
     (21) statement -> . NAME EQUAL expression SEMI
     (22) statement -> . PRINT LPAREN expression_print RPAREN SEMI
     (37) statement -> . NAME PLUSPLUS SEMI
@@ -2170,6 +3760,14 @@ state 96
     (42) statement -> . NAME LBRACKET expression RBRACKET EQUAL expression SEMI
 
     RBRACE          shift and go to state 112
+=======
+    (22) statement -> . NAME EQUAL expression SEMI
+    (23) statement -> . NAME EQUAL statement
+    (24) statement -> . PRINT LPAREN expression_print RPAREN SEMI
+    (41) statement -> . NAME PLUSPLUS SEMI
+
+    RBRACE          shift and go to state 107
+>>>>>>> test
     IF              shift and go to state 4
     WHILE           shift and go to state 5
     FOR             shift and go to state 6
@@ -2178,8 +3776,9 @@ state 96
     FUNCTION        shift and go to state 9
     PRINT           shift and go to state 10
 
-    statement                      shift and go to state 11
+    statement                      shift and go to state 12
 
+<<<<<<< HEAD
 state 97
 
     (35) expression -> expression INF NAME INF . expression
@@ -2250,6 +3849,57 @@ state 99
 
 
 state 100
+=======
+state 96
+
+    (39) expression -> expression INF NAME INF . expression
+    (29) expression -> . expression PLUS expression
+    (30) expression -> . expression MINUS expression
+    (31) expression -> . expression TIMES expression
+    (32) expression -> . expression OR expression
+    (33) expression -> . expression AND expression
+    (34) expression -> . expression INF expression
+    (35) expression -> . expression SUP expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression EQUALS expression
+    (38) expression -> . LPAREN expression RPAREN
+    (39) expression -> . expression INF NAME INF expression
+    (40) expression -> . expression SUP NAME SUP expression
+    (42) expression -> . NUMBER
+    (43) expression -> . NAME
+
+    LPAREN          shift and go to state 24
+    NUMBER          shift and go to state 27
+    NAME            shift and go to state 26
+
+    expression                     shift and go to state 108
+
+state 97
+
+    (40) expression -> expression SUP NAME SUP . expression
+    (29) expression -> . expression PLUS expression
+    (30) expression -> . expression MINUS expression
+    (31) expression -> . expression TIMES expression
+    (32) expression -> . expression OR expression
+    (33) expression -> . expression AND expression
+    (34) expression -> . expression INF expression
+    (35) expression -> . expression SUP expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression EQUALS expression
+    (38) expression -> . LPAREN expression RPAREN
+    (39) expression -> . expression INF NAME INF expression
+    (40) expression -> . expression SUP NAME SUP expression
+    (42) expression -> . NUMBER
+    (43) expression -> . NAME
+
+    LPAREN          shift and go to state 24
+    NUMBER          shift and go to state 27
+    NAME            shift and go to state 26
+
+    expression                     shift and go to state 109
+
+state 98
+>>>>>>> test
 
     (7) statement -> WHILE LPAREN expression RPAREN LBRACE bloc . RBRACE SEMI
     (2) bloc -> bloc . statement
@@ -2264,6 +3914,7 @@ state 100
     (13) statement -> . NAME LPAREN parameters RPAREN SEMI
     (14) statement -> . FUNCTION NAME LPAREN RPAREN LBRACE bloc return_statement RBRACE SEMI
     (15) statement -> . FUNCTION NAME LPAREN parameters_function RPAREN LBRACE bloc return_statement RBRACE SEMI
+<<<<<<< HEAD
     (21) statement -> . NAME EQUAL expression SEMI
     (22) statement -> . PRINT LPAREN expression_print RPAREN SEMI
     (37) statement -> . NAME PLUSPLUS SEMI
@@ -2272,6 +3923,14 @@ state 100
     (42) statement -> . NAME LBRACKET expression RBRACKET EQUAL expression SEMI
 
     RBRACE          shift and go to state 115
+=======
+    (22) statement -> . NAME EQUAL expression SEMI
+    (23) statement -> . NAME EQUAL statement
+    (24) statement -> . PRINT LPAREN expression_print RPAREN SEMI
+    (41) statement -> . NAME PLUSPLUS SEMI
+
+    RBRACE          shift and go to state 110
+>>>>>>> test
     IF              shift and go to state 4
     WHILE           shift and go to state 5
     FOR             shift and go to state 6
@@ -2280,8 +3939,9 @@ state 100
     FUNCTION        shift and go to state 9
     PRINT           shift and go to state 10
 
-    statement                      shift and go to state 11
+    statement                      shift and go to state 12
 
+<<<<<<< HEAD
 state 101
 
     (9) statement -> FOR LPAREN statement expression SEMI statement . RPAREN LBRACE bloc RBRACE SEMI
@@ -2290,20 +3950,31 @@ state 101
 
 
 state 102
+=======
+state 99
+
+    (9) statement -> FOR LPAREN statement expression SEMI statement . RPAREN LBRACE bloc RBRACE SEMI
+
+    RPAREN          shift and go to state 111
+
+
+state 100
+>>>>>>> test
 
     (8) statement -> FOR LPAREN statement expression SEMI expression . RPAREN LBRACE bloc RBRACE SEMI
-    (25) expression -> expression . PLUS expression
-    (26) expression -> expression . MINUS expression
-    (27) expression -> expression . TIMES expression
-    (28) expression -> expression . OR expression
-    (29) expression -> expression . AND expression
-    (30) expression -> expression . INF expression
-    (31) expression -> expression . SUP expression
-    (32) expression -> expression . DIVIDE expression
-    (33) expression -> expression . EQUALS expression
-    (35) expression -> expression . INF NAME INF expression
-    (36) expression -> expression . SUP NAME SUP expression
+    (29) expression -> expression . PLUS expression
+    (30) expression -> expression . MINUS expression
+    (31) expression -> expression . TIMES expression
+    (32) expression -> expression . OR expression
+    (33) expression -> expression . AND expression
+    (34) expression -> expression . INF expression
+    (35) expression -> expression . SUP expression
+    (36) expression -> expression . DIVIDE expression
+    (37) expression -> expression . EQUALS expression
+    (39) expression -> expression . INF NAME INF expression
+    (40) expression -> expression . SUP NAME SUP expression
 
+<<<<<<< HEAD
     RPAREN          shift and go to state 117
     PLUS            shift and go to state 43
     MINUS           shift and go to state 44
@@ -2346,13 +4017,32 @@ state 103
 
 
 state 104
+=======
+    RPAREN          shift and go to state 112
+    PLUS            shift and go to state 45
+    MINUS           shift and go to state 46
+    TIMES           shift and go to state 47
+    OR              shift and go to state 48
+    AND             shift and go to state 49
+    INF             shift and go to state 50
+    SUP             shift and go to state 51
+    DIVIDE          shift and go to state 52
+    EQUALS          shift and go to state 53
+
+
+state 101
+>>>>>>> test
 
     (17) parameters_function -> NAME COMMA parameters_function .
 
     RPAREN          reduce using rule 17 (parameters_function -> NAME COMMA parameters_function .)
 
 
+<<<<<<< HEAD
 state 105
+=======
+state 102
+>>>>>>> test
 
     (10) statement -> VOID NAME LPAREN RPAREN LBRACE bloc . RBRACE SEMI
     (2) bloc -> bloc . statement
@@ -2367,6 +4057,7 @@ state 105
     (13) statement -> . NAME LPAREN parameters RPAREN SEMI
     (14) statement -> . FUNCTION NAME LPAREN RPAREN LBRACE bloc return_statement RBRACE SEMI
     (15) statement -> . FUNCTION NAME LPAREN parameters_function RPAREN LBRACE bloc return_statement RBRACE SEMI
+<<<<<<< HEAD
     (21) statement -> . NAME EQUAL expression SEMI
     (22) statement -> . PRINT LPAREN expression_print RPAREN SEMI
     (37) statement -> . NAME PLUSPLUS SEMI
@@ -2375,6 +4066,14 @@ state 105
     (42) statement -> . NAME LBRACKET expression RBRACKET EQUAL expression SEMI
 
     RBRACE          shift and go to state 119
+=======
+    (22) statement -> . NAME EQUAL expression SEMI
+    (23) statement -> . NAME EQUAL statement
+    (24) statement -> . PRINT LPAREN expression_print RPAREN SEMI
+    (41) statement -> . NAME PLUSPLUS SEMI
+
+    RBRACE          shift and go to state 113
+>>>>>>> test
     IF              shift and go to state 4
     WHILE           shift and go to state 5
     FOR             shift and go to state 6
@@ -2383,9 +4082,13 @@ state 105
     FUNCTION        shift and go to state 9
     PRINT           shift and go to state 10
 
-    statement                      shift and go to state 11
+    statement                      shift and go to state 12
 
+<<<<<<< HEAD
 state 106
+=======
+state 103
+>>>>>>> test
 
     (11) statement -> VOID NAME LPAREN parameters_function RPAREN LBRACE . bloc RBRACE SEMI
     (2) bloc -> . bloc statement
@@ -2401,12 +4104,19 @@ state 106
     (13) statement -> . NAME LPAREN parameters RPAREN SEMI
     (14) statement -> . FUNCTION NAME LPAREN RPAREN LBRACE bloc return_statement RBRACE SEMI
     (15) statement -> . FUNCTION NAME LPAREN parameters_function RPAREN LBRACE bloc return_statement RBRACE SEMI
+<<<<<<< HEAD
     (21) statement -> . NAME EQUAL expression SEMI
     (22) statement -> . PRINT LPAREN expression_print RPAREN SEMI
     (37) statement -> . NAME PLUSPLUS SEMI
     (38) statement -> . NAME PLUSEQUAL expression SEMI
     (41) statement -> . NAME LBRACKET RBRACKET EQUAL LBRACKET array_values RBRACKET SEMI
     (42) statement -> . NAME LBRACKET expression RBRACKET EQUAL expression SEMI
+=======
+    (22) statement -> . NAME EQUAL expression SEMI
+    (23) statement -> . NAME EQUAL statement
+    (24) statement -> . PRINT LPAREN expression_print RPAREN SEMI
+    (41) statement -> . NAME PLUSPLUS SEMI
+>>>>>>> test
 
     IF              shift and go to state 4
     WHILE           shift and go to state 5
@@ -2416,6 +4126,7 @@ state 106
     FUNCTION        shift and go to state 9
     PRINT           shift and go to state 10
 
+<<<<<<< HEAD
     bloc                           shift and go to state 120
     statement                      shift and go to state 3
 
@@ -2484,6 +4195,12 @@ state 109
 
 
 state 110
+=======
+    bloc                           shift and go to state 114
+    statement                      shift and go to state 3
+
+state 104
+>>>>>>> test
 
     (14) statement -> FUNCTION NAME LPAREN RPAREN LBRACE bloc . return_statement RBRACE SEMI
     (2) bloc -> bloc . statement
@@ -2499,6 +4216,7 @@ state 110
     (13) statement -> . NAME LPAREN parameters RPAREN SEMI
     (14) statement -> . FUNCTION NAME LPAREN RPAREN LBRACE bloc return_statement RBRACE SEMI
     (15) statement -> . FUNCTION NAME LPAREN parameters_function RPAREN LBRACE bloc return_statement RBRACE SEMI
+<<<<<<< HEAD
     (21) statement -> . NAME EQUAL expression SEMI
     (22) statement -> . PRINT LPAREN expression_print RPAREN SEMI
     (37) statement -> . NAME PLUSPLUS SEMI
@@ -2507,6 +4225,14 @@ state 110
     (42) statement -> . NAME LBRACKET expression RBRACKET EQUAL expression SEMI
 
     RETURN          shift and go to state 125
+=======
+    (22) statement -> . NAME EQUAL expression SEMI
+    (23) statement -> . NAME EQUAL statement
+    (24) statement -> . PRINT LPAREN expression_print RPAREN SEMI
+    (41) statement -> . NAME PLUSPLUS SEMI
+
+    RETURN          shift and go to state 116
+>>>>>>> test
     IF              shift and go to state 4
     WHILE           shift and go to state 5
     FOR             shift and go to state 6
@@ -2515,10 +4241,17 @@ state 110
     FUNCTION        shift and go to state 9
     PRINT           shift and go to state 10
 
+<<<<<<< HEAD
     return_statement               shift and go to state 124
     statement                      shift and go to state 11
 
 state 111
+=======
+    return_statement               shift and go to state 115
+    statement                      shift and go to state 12
+
+state 105
+>>>>>>> test
 
     (15) statement -> FUNCTION NAME LPAREN parameters_function RPAREN LBRACE . bloc return_statement RBRACE SEMI
     (2) bloc -> . bloc statement
@@ -2534,12 +4267,19 @@ state 111
     (13) statement -> . NAME LPAREN parameters RPAREN SEMI
     (14) statement -> . FUNCTION NAME LPAREN RPAREN LBRACE bloc return_statement RBRACE SEMI
     (15) statement -> . FUNCTION NAME LPAREN parameters_function RPAREN LBRACE bloc return_statement RBRACE SEMI
+<<<<<<< HEAD
     (21) statement -> . NAME EQUAL expression SEMI
     (22) statement -> . PRINT LPAREN expression_print RPAREN SEMI
     (37) statement -> . NAME PLUSPLUS SEMI
     (38) statement -> . NAME PLUSEQUAL expression SEMI
     (41) statement -> . NAME LBRACKET RBRACKET EQUAL LBRACKET array_values RBRACKET SEMI
     (42) statement -> . NAME LBRACKET expression RBRACKET EQUAL expression SEMI
+=======
+    (22) statement -> . NAME EQUAL expression SEMI
+    (23) statement -> . NAME EQUAL statement
+    (24) statement -> . PRINT LPAREN expression_print RPAREN SEMI
+    (41) statement -> . NAME PLUSPLUS SEMI
+>>>>>>> test
 
     IF              shift and go to state 4
     WHILE           shift and go to state 5
@@ -2549,35 +4289,59 @@ state 111
     FUNCTION        shift and go to state 9
     PRINT           shift and go to state 10
 
+<<<<<<< HEAD
     bloc                           shift and go to state 126
     statement                      shift and go to state 3
 
 state 112
+=======
+    bloc                           shift and go to state 117
+    statement                      shift and go to state 3
+
+state 106
+
+    (21) function_main -> MAIN LPAREN RPAREN LBRACE bloc RBRACE .
+
+    $end            reduce using rule 21 (function_main -> MAIN LPAREN RPAREN LBRACE bloc RBRACE .)
+
+
+state 107
+>>>>>>> test
 
     (4) statement -> IF LPAREN expression RPAREN LBRACE bloc RBRACE . SEMI
     (5) statement -> IF LPAREN expression RPAREN LBRACE bloc RBRACE . condition
     (6) condition -> . ELSE LBRACE bloc RBRACE SEMI
 
+<<<<<<< HEAD
     SEMI            shift and go to state 127
     ELSE            shift and go to state 129
 
     condition                      shift and go to state 128
 
 state 113
+=======
+    SEMI            shift and go to state 118
+    ELSE            shift and go to state 120
 
-    (35) expression -> expression INF NAME INF expression .
-    (25) expression -> expression . PLUS expression
-    (26) expression -> expression . MINUS expression
-    (27) expression -> expression . TIMES expression
-    (28) expression -> expression . OR expression
-    (29) expression -> expression . AND expression
-    (30) expression -> expression . INF expression
-    (31) expression -> expression . SUP expression
-    (32) expression -> expression . DIVIDE expression
-    (33) expression -> expression . EQUALS expression
-    (35) expression -> expression . INF NAME INF expression
-    (36) expression -> expression . SUP NAME SUP expression
+    condition                      shift and go to state 119
 
+state 108
+>>>>>>> test
+
+    (39) expression -> expression INF NAME INF expression .
+    (29) expression -> expression . PLUS expression
+    (30) expression -> expression . MINUS expression
+    (31) expression -> expression . TIMES expression
+    (32) expression -> expression . OR expression
+    (33) expression -> expression . AND expression
+    (34) expression -> expression . INF expression
+    (35) expression -> expression . SUP expression
+    (36) expression -> expression . DIVIDE expression
+    (37) expression -> expression . EQUALS expression
+    (39) expression -> expression . INF NAME INF expression
+    (40) expression -> expression . SUP NAME SUP expression
+
+<<<<<<< HEAD
     RPAREN          reduce using rule 35 (expression -> expression INF NAME INF expression .)
     OR              reduce using rule 35 (expression -> expression INF NAME INF expression .)
     AND             reduce using rule 35 (expression -> expression INF NAME INF expression .)
@@ -2604,20 +4368,48 @@ state 113
 
 
 state 114
+=======
+    RPAREN          reduce using rule 39 (expression -> expression INF NAME INF expression .)
+    OR              reduce using rule 39 (expression -> expression INF NAME INF expression .)
+    AND             reduce using rule 39 (expression -> expression INF NAME INF expression .)
+    EQUALS          reduce using rule 39 (expression -> expression INF NAME INF expression .)
+    COMMA           reduce using rule 39 (expression -> expression INF NAME INF expression .)
+    SEMI            reduce using rule 39 (expression -> expression INF NAME INF expression .)
+    PLUS            shift and go to state 45
+    MINUS           shift and go to state 46
+    TIMES           shift and go to state 47
+    DIVIDE          shift and go to state 52
+    INF             shift and go to state 50
+    SUP             shift and go to state 51
 
-    (36) expression -> expression SUP NAME SUP expression .
-    (25) expression -> expression . PLUS expression
-    (26) expression -> expression . MINUS expression
-    (27) expression -> expression . TIMES expression
-    (28) expression -> expression . OR expression
-    (29) expression -> expression . AND expression
-    (30) expression -> expression . INF expression
-    (31) expression -> expression . SUP expression
-    (32) expression -> expression . DIVIDE expression
-    (33) expression -> expression . EQUALS expression
-    (35) expression -> expression . INF NAME INF expression
-    (36) expression -> expression . SUP NAME SUP expression
+  ! PLUS            [ reduce using rule 39 (expression -> expression INF NAME INF expression .) ]
+  ! MINUS           [ reduce using rule 39 (expression -> expression INF NAME INF expression .) ]
+  ! TIMES           [ reduce using rule 39 (expression -> expression INF NAME INF expression .) ]
+  ! INF             [ reduce using rule 39 (expression -> expression INF NAME INF expression .) ]
+  ! SUP             [ reduce using rule 39 (expression -> expression INF NAME INF expression .) ]
+  ! DIVIDE          [ reduce using rule 39 (expression -> expression INF NAME INF expression .) ]
+  ! OR              [ shift and go to state 48 ]
+  ! AND             [ shift and go to state 49 ]
+  ! EQUALS          [ shift and go to state 53 ]
 
+
+state 109
+>>>>>>> test
+
+    (40) expression -> expression SUP NAME SUP expression .
+    (29) expression -> expression . PLUS expression
+    (30) expression -> expression . MINUS expression
+    (31) expression -> expression . TIMES expression
+    (32) expression -> expression . OR expression
+    (33) expression -> expression . AND expression
+    (34) expression -> expression . INF expression
+    (35) expression -> expression . SUP expression
+    (36) expression -> expression . DIVIDE expression
+    (37) expression -> expression . EQUALS expression
+    (39) expression -> expression . INF NAME INF expression
+    (40) expression -> expression . SUP NAME SUP expression
+
+<<<<<<< HEAD
     RPAREN          reduce using rule 36 (expression -> expression SUP NAME SUP expression .)
     OR              reduce using rule 36 (expression -> expression SUP NAME SUP expression .)
     AND             reduce using rule 36 (expression -> expression SUP NAME SUP expression .)
@@ -2700,6 +4492,61 @@ state 119
 
 
 state 120
+=======
+    RPAREN          reduce using rule 40 (expression -> expression SUP NAME SUP expression .)
+    OR              reduce using rule 40 (expression -> expression SUP NAME SUP expression .)
+    AND             reduce using rule 40 (expression -> expression SUP NAME SUP expression .)
+    EQUALS          reduce using rule 40 (expression -> expression SUP NAME SUP expression .)
+    COMMA           reduce using rule 40 (expression -> expression SUP NAME SUP expression .)
+    SEMI            reduce using rule 40 (expression -> expression SUP NAME SUP expression .)
+    PLUS            shift and go to state 45
+    MINUS           shift and go to state 46
+    TIMES           shift and go to state 47
+    DIVIDE          shift and go to state 52
+    INF             shift and go to state 50
+    SUP             shift and go to state 51
+
+  ! PLUS            [ reduce using rule 40 (expression -> expression SUP NAME SUP expression .) ]
+  ! MINUS           [ reduce using rule 40 (expression -> expression SUP NAME SUP expression .) ]
+  ! TIMES           [ reduce using rule 40 (expression -> expression SUP NAME SUP expression .) ]
+  ! INF             [ reduce using rule 40 (expression -> expression SUP NAME SUP expression .) ]
+  ! SUP             [ reduce using rule 40 (expression -> expression SUP NAME SUP expression .) ]
+  ! DIVIDE          [ reduce using rule 40 (expression -> expression SUP NAME SUP expression .) ]
+  ! OR              [ shift and go to state 48 ]
+  ! AND             [ shift and go to state 49 ]
+  ! EQUALS          [ shift and go to state 53 ]
+
+
+state 110
+
+    (7) statement -> WHILE LPAREN expression RPAREN LBRACE bloc RBRACE . SEMI
+
+    SEMI            shift and go to state 121
+
+
+state 111
+
+    (9) statement -> FOR LPAREN statement expression SEMI statement RPAREN . LBRACE bloc RBRACE SEMI
+
+    LBRACE          shift and go to state 122
+
+
+state 112
+
+    (8) statement -> FOR LPAREN statement expression SEMI expression RPAREN . LBRACE bloc RBRACE SEMI
+
+    LBRACE          shift and go to state 123
+
+
+state 113
+
+    (10) statement -> VOID NAME LPAREN RPAREN LBRACE bloc RBRACE . SEMI
+
+    SEMI            shift and go to state 124
+
+
+state 114
+>>>>>>> test
 
     (11) statement -> VOID NAME LPAREN parameters_function RPAREN LBRACE bloc . RBRACE SEMI
     (2) bloc -> bloc . statement
@@ -2714,6 +4561,7 @@ state 120
     (13) statement -> . NAME LPAREN parameters RPAREN SEMI
     (14) statement -> . FUNCTION NAME LPAREN RPAREN LBRACE bloc return_statement RBRACE SEMI
     (15) statement -> . FUNCTION NAME LPAREN parameters_function RPAREN LBRACE bloc return_statement RBRACE SEMI
+<<<<<<< HEAD
     (21) statement -> . NAME EQUAL expression SEMI
     (22) statement -> . PRINT LPAREN expression_print RPAREN SEMI
     (37) statement -> . NAME PLUSPLUS SEMI
@@ -2722,6 +4570,14 @@ state 120
     (42) statement -> . NAME LBRACKET expression RBRACKET EQUAL expression SEMI
 
     RBRACE          shift and go to state 135
+=======
+    (22) statement -> . NAME EQUAL expression SEMI
+    (23) statement -> . NAME EQUAL statement
+    (24) statement -> . PRINT LPAREN expression_print RPAREN SEMI
+    (41) statement -> . NAME PLUSPLUS SEMI
+
+    RBRACE          shift and go to state 125
+>>>>>>> test
     IF              shift and go to state 4
     WHILE           shift and go to state 5
     FOR             shift and go to state 6
@@ -2730,8 +4586,9 @@ state 120
     FUNCTION        shift and go to state 9
     PRINT           shift and go to state 10
 
-    statement                      shift and go to state 11
+    statement                      shift and go to state 12
 
+<<<<<<< HEAD
 state 121
 
     (41) statement -> NAME LBRACKET RBRACKET EQUAL LBRACKET array_values RBRACKET . SEMI
@@ -2816,6 +4673,40 @@ state 125
     expression                     shift and go to state 139
 
 state 126
+=======
+state 115
+
+    (14) statement -> FUNCTION NAME LPAREN RPAREN LBRACE bloc return_statement . RBRACE SEMI
+
+    RBRACE          shift and go to state 126
+
+
+state 116
+
+    (16) return_statement -> RETURN . expression SEMI
+    (29) expression -> . expression PLUS expression
+    (30) expression -> . expression MINUS expression
+    (31) expression -> . expression TIMES expression
+    (32) expression -> . expression OR expression
+    (33) expression -> . expression AND expression
+    (34) expression -> . expression INF expression
+    (35) expression -> . expression SUP expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression EQUALS expression
+    (38) expression -> . LPAREN expression RPAREN
+    (39) expression -> . expression INF NAME INF expression
+    (40) expression -> . expression SUP NAME SUP expression
+    (42) expression -> . NUMBER
+    (43) expression -> . NAME
+
+    LPAREN          shift and go to state 24
+    NUMBER          shift and go to state 27
+    NAME            shift and go to state 26
+
+    expression                     shift and go to state 127
+
+state 117
+>>>>>>> test
 
     (15) statement -> FUNCTION NAME LPAREN parameters_function RPAREN LBRACE bloc . return_statement RBRACE SEMI
     (2) bloc -> bloc . statement
@@ -2831,6 +4722,7 @@ state 126
     (13) statement -> . NAME LPAREN parameters RPAREN SEMI
     (14) statement -> . FUNCTION NAME LPAREN RPAREN LBRACE bloc return_statement RBRACE SEMI
     (15) statement -> . FUNCTION NAME LPAREN parameters_function RPAREN LBRACE bloc return_statement RBRACE SEMI
+<<<<<<< HEAD
     (21) statement -> . NAME EQUAL expression SEMI
     (22) statement -> . PRINT LPAREN expression_print RPAREN SEMI
     (37) statement -> . NAME PLUSPLUS SEMI
@@ -2839,6 +4731,14 @@ state 126
     (42) statement -> . NAME LBRACKET expression RBRACKET EQUAL expression SEMI
 
     RETURN          shift and go to state 125
+=======
+    (22) statement -> . NAME EQUAL expression SEMI
+    (23) statement -> . NAME EQUAL statement
+    (24) statement -> . PRINT LPAREN expression_print RPAREN SEMI
+    (41) statement -> . NAME PLUSPLUS SEMI
+
+    RETURN          shift and go to state 116
+>>>>>>> test
     IF              shift and go to state 4
     WHILE           shift and go to state 5
     FOR             shift and go to state 6
@@ -2847,13 +4747,21 @@ state 126
     FUNCTION        shift and go to state 9
     PRINT           shift and go to state 10
 
+<<<<<<< HEAD
     return_statement               shift and go to state 140
     statement                      shift and go to state 11
 
 state 127
+=======
+    return_statement               shift and go to state 128
+    statement                      shift and go to state 12
+
+state 118
+>>>>>>> test
 
     (4) statement -> IF LPAREN expression RPAREN LBRACE bloc RBRACE SEMI .
 
+    MAIN            reduce using rule 4 (statement -> IF LPAREN expression RPAREN LBRACE bloc RBRACE SEMI .)
     IF              reduce using rule 4 (statement -> IF LPAREN expression RPAREN LBRACE bloc RBRACE SEMI .)
     WHILE           reduce using rule 4 (statement -> IF LPAREN expression RPAREN LBRACE bloc RBRACE SEMI .)
     FOR             reduce using rule 4 (statement -> IF LPAREN expression RPAREN LBRACE bloc RBRACE SEMI .)
@@ -2861,18 +4769,23 @@ state 127
     NAME            reduce using rule 4 (statement -> IF LPAREN expression RPAREN LBRACE bloc RBRACE SEMI .)
     FUNCTION        reduce using rule 4 (statement -> IF LPAREN expression RPAREN LBRACE bloc RBRACE SEMI .)
     PRINT           reduce using rule 4 (statement -> IF LPAREN expression RPAREN LBRACE bloc RBRACE SEMI .)
-    $end            reduce using rule 4 (statement -> IF LPAREN expression RPAREN LBRACE bloc RBRACE SEMI .)
     LPAREN          reduce using rule 4 (statement -> IF LPAREN expression RPAREN LBRACE bloc RBRACE SEMI .)
     NUMBER          reduce using rule 4 (statement -> IF LPAREN expression RPAREN LBRACE bloc RBRACE SEMI .)
-    RBRACE          reduce using rule 4 (statement -> IF LPAREN expression RPAREN LBRACE bloc RBRACE SEMI .)
+    COMMA           reduce using rule 4 (statement -> IF LPAREN expression RPAREN LBRACE bloc RBRACE SEMI .)
     RPAREN          reduce using rule 4 (statement -> IF LPAREN expression RPAREN LBRACE bloc RBRACE SEMI .)
+    RBRACE          reduce using rule 4 (statement -> IF LPAREN expression RPAREN LBRACE bloc RBRACE SEMI .)
     RETURN          reduce using rule 4 (statement -> IF LPAREN expression RPAREN LBRACE bloc RBRACE SEMI .)
 
 
+<<<<<<< HEAD
 state 128
+=======
+state 119
+>>>>>>> test
 
     (5) statement -> IF LPAREN expression RPAREN LBRACE bloc RBRACE condition .
 
+    MAIN            reduce using rule 5 (statement -> IF LPAREN expression RPAREN LBRACE bloc RBRACE condition .)
     IF              reduce using rule 5 (statement -> IF LPAREN expression RPAREN LBRACE bloc RBRACE condition .)
     WHILE           reduce using rule 5 (statement -> IF LPAREN expression RPAREN LBRACE bloc RBRACE condition .)
     FOR             reduce using rule 5 (statement -> IF LPAREN expression RPAREN LBRACE bloc RBRACE condition .)
@@ -2880,14 +4793,15 @@ state 128
     NAME            reduce using rule 5 (statement -> IF LPAREN expression RPAREN LBRACE bloc RBRACE condition .)
     FUNCTION        reduce using rule 5 (statement -> IF LPAREN expression RPAREN LBRACE bloc RBRACE condition .)
     PRINT           reduce using rule 5 (statement -> IF LPAREN expression RPAREN LBRACE bloc RBRACE condition .)
-    $end            reduce using rule 5 (statement -> IF LPAREN expression RPAREN LBRACE bloc RBRACE condition .)
     LPAREN          reduce using rule 5 (statement -> IF LPAREN expression RPAREN LBRACE bloc RBRACE condition .)
     NUMBER          reduce using rule 5 (statement -> IF LPAREN expression RPAREN LBRACE bloc RBRACE condition .)
-    RBRACE          reduce using rule 5 (statement -> IF LPAREN expression RPAREN LBRACE bloc RBRACE condition .)
+    COMMA           reduce using rule 5 (statement -> IF LPAREN expression RPAREN LBRACE bloc RBRACE condition .)
     RPAREN          reduce using rule 5 (statement -> IF LPAREN expression RPAREN LBRACE bloc RBRACE condition .)
+    RBRACE          reduce using rule 5 (statement -> IF LPAREN expression RPAREN LBRACE bloc RBRACE condition .)
     RETURN          reduce using rule 5 (statement -> IF LPAREN expression RPAREN LBRACE bloc RBRACE condition .)
 
 
+<<<<<<< HEAD
 state 129
 
     (6) condition -> ELSE . LBRACE bloc RBRACE SEMI
@@ -2896,9 +4810,20 @@ state 129
 
 
 state 130
+=======
+state 120
+
+    (6) condition -> ELSE . LBRACE bloc RBRACE SEMI
+
+    LBRACE          shift and go to state 129
+
+
+state 121
+>>>>>>> test
 
     (7) statement -> WHILE LPAREN expression RPAREN LBRACE bloc RBRACE SEMI .
 
+    MAIN            reduce using rule 7 (statement -> WHILE LPAREN expression RPAREN LBRACE bloc RBRACE SEMI .)
     IF              reduce using rule 7 (statement -> WHILE LPAREN expression RPAREN LBRACE bloc RBRACE SEMI .)
     WHILE           reduce using rule 7 (statement -> WHILE LPAREN expression RPAREN LBRACE bloc RBRACE SEMI .)
     FOR             reduce using rule 7 (statement -> WHILE LPAREN expression RPAREN LBRACE bloc RBRACE SEMI .)
@@ -2906,15 +4831,19 @@ state 130
     NAME            reduce using rule 7 (statement -> WHILE LPAREN expression RPAREN LBRACE bloc RBRACE SEMI .)
     FUNCTION        reduce using rule 7 (statement -> WHILE LPAREN expression RPAREN LBRACE bloc RBRACE SEMI .)
     PRINT           reduce using rule 7 (statement -> WHILE LPAREN expression RPAREN LBRACE bloc RBRACE SEMI .)
-    $end            reduce using rule 7 (statement -> WHILE LPAREN expression RPAREN LBRACE bloc RBRACE SEMI .)
     LPAREN          reduce using rule 7 (statement -> WHILE LPAREN expression RPAREN LBRACE bloc RBRACE SEMI .)
     NUMBER          reduce using rule 7 (statement -> WHILE LPAREN expression RPAREN LBRACE bloc RBRACE SEMI .)
-    RBRACE          reduce using rule 7 (statement -> WHILE LPAREN expression RPAREN LBRACE bloc RBRACE SEMI .)
+    COMMA           reduce using rule 7 (statement -> WHILE LPAREN expression RPAREN LBRACE bloc RBRACE SEMI .)
     RPAREN          reduce using rule 7 (statement -> WHILE LPAREN expression RPAREN LBRACE bloc RBRACE SEMI .)
+    RBRACE          reduce using rule 7 (statement -> WHILE LPAREN expression RPAREN LBRACE bloc RBRACE SEMI .)
     RETURN          reduce using rule 7 (statement -> WHILE LPAREN expression RPAREN LBRACE bloc RBRACE SEMI .)
 
 
+<<<<<<< HEAD
 state 131
+=======
+state 122
+>>>>>>> test
 
     (9) statement -> FOR LPAREN statement expression SEMI statement RPAREN LBRACE . bloc RBRACE SEMI
     (2) bloc -> . bloc statement
@@ -2930,12 +4859,19 @@ state 131
     (13) statement -> . NAME LPAREN parameters RPAREN SEMI
     (14) statement -> . FUNCTION NAME LPAREN RPAREN LBRACE bloc return_statement RBRACE SEMI
     (15) statement -> . FUNCTION NAME LPAREN parameters_function RPAREN LBRACE bloc return_statement RBRACE SEMI
+<<<<<<< HEAD
     (21) statement -> . NAME EQUAL expression SEMI
     (22) statement -> . PRINT LPAREN expression_print RPAREN SEMI
     (37) statement -> . NAME PLUSPLUS SEMI
     (38) statement -> . NAME PLUSEQUAL expression SEMI
     (41) statement -> . NAME LBRACKET RBRACKET EQUAL LBRACKET array_values RBRACKET SEMI
     (42) statement -> . NAME LBRACKET expression RBRACKET EQUAL expression SEMI
+=======
+    (22) statement -> . NAME EQUAL expression SEMI
+    (23) statement -> . NAME EQUAL statement
+    (24) statement -> . PRINT LPAREN expression_print RPAREN SEMI
+    (41) statement -> . NAME PLUSPLUS SEMI
+>>>>>>> test
 
     IF              shift and go to state 4
     WHILE           shift and go to state 5
@@ -2946,9 +4882,15 @@ state 131
     PRINT           shift and go to state 10
 
     statement                      shift and go to state 3
+<<<<<<< HEAD
     bloc                           shift and go to state 142
 
 state 132
+=======
+    bloc                           shift and go to state 130
+
+state 123
+>>>>>>> test
 
     (8) statement -> FOR LPAREN statement expression SEMI expression RPAREN LBRACE . bloc RBRACE SEMI
     (2) bloc -> . bloc statement
@@ -2964,12 +4906,19 @@ state 132
     (13) statement -> . NAME LPAREN parameters RPAREN SEMI
     (14) statement -> . FUNCTION NAME LPAREN RPAREN LBRACE bloc return_statement RBRACE SEMI
     (15) statement -> . FUNCTION NAME LPAREN parameters_function RPAREN LBRACE bloc return_statement RBRACE SEMI
+<<<<<<< HEAD
     (21) statement -> . NAME EQUAL expression SEMI
     (22) statement -> . PRINT LPAREN expression_print RPAREN SEMI
     (37) statement -> . NAME PLUSPLUS SEMI
     (38) statement -> . NAME PLUSEQUAL expression SEMI
     (41) statement -> . NAME LBRACKET RBRACKET EQUAL LBRACKET array_values RBRACKET SEMI
     (42) statement -> . NAME LBRACKET expression RBRACKET EQUAL expression SEMI
+=======
+    (22) statement -> . NAME EQUAL expression SEMI
+    (23) statement -> . NAME EQUAL statement
+    (24) statement -> . PRINT LPAREN expression_print RPAREN SEMI
+    (41) statement -> . NAME PLUSPLUS SEMI
+>>>>>>> test
 
     IF              shift and go to state 4
     WHILE           shift and go to state 5
@@ -2980,6 +4929,7 @@ state 132
     PRINT           shift and go to state 10
 
     statement                      shift and go to state 3
+<<<<<<< HEAD
     bloc                           shift and go to state 143
 
 state 133
@@ -3011,9 +4961,15 @@ state 133
 
 
 state 134
+=======
+    bloc                           shift and go to state 131
+
+state 124
+>>>>>>> test
 
     (10) statement -> VOID NAME LPAREN RPAREN LBRACE bloc RBRACE SEMI .
 
+    MAIN            reduce using rule 10 (statement -> VOID NAME LPAREN RPAREN LBRACE bloc RBRACE SEMI .)
     IF              reduce using rule 10 (statement -> VOID NAME LPAREN RPAREN LBRACE bloc RBRACE SEMI .)
     WHILE           reduce using rule 10 (statement -> VOID NAME LPAREN RPAREN LBRACE bloc RBRACE SEMI .)
     FOR             reduce using rule 10 (statement -> VOID NAME LPAREN RPAREN LBRACE bloc RBRACE SEMI .)
@@ -3021,14 +4977,15 @@ state 134
     NAME            reduce using rule 10 (statement -> VOID NAME LPAREN RPAREN LBRACE bloc RBRACE SEMI .)
     FUNCTION        reduce using rule 10 (statement -> VOID NAME LPAREN RPAREN LBRACE bloc RBRACE SEMI .)
     PRINT           reduce using rule 10 (statement -> VOID NAME LPAREN RPAREN LBRACE bloc RBRACE SEMI .)
-    $end            reduce using rule 10 (statement -> VOID NAME LPAREN RPAREN LBRACE bloc RBRACE SEMI .)
     LPAREN          reduce using rule 10 (statement -> VOID NAME LPAREN RPAREN LBRACE bloc RBRACE SEMI .)
     NUMBER          reduce using rule 10 (statement -> VOID NAME LPAREN RPAREN LBRACE bloc RBRACE SEMI .)
-    RBRACE          reduce using rule 10 (statement -> VOID NAME LPAREN RPAREN LBRACE bloc RBRACE SEMI .)
+    COMMA           reduce using rule 10 (statement -> VOID NAME LPAREN RPAREN LBRACE bloc RBRACE SEMI .)
     RPAREN          reduce using rule 10 (statement -> VOID NAME LPAREN RPAREN LBRACE bloc RBRACE SEMI .)
+    RBRACE          reduce using rule 10 (statement -> VOID NAME LPAREN RPAREN LBRACE bloc RBRACE SEMI .)
     RETURN          reduce using rule 10 (statement -> VOID NAME LPAREN RPAREN LBRACE bloc RBRACE SEMI .)
 
 
+<<<<<<< HEAD
 state 135
 
     (11) statement -> VOID NAME LPAREN parameters_function RPAREN LBRACE bloc RBRACE . SEMI
@@ -3091,20 +5048,38 @@ state 138
 
 
 state 139
+=======
+state 125
+
+    (11) statement -> VOID NAME LPAREN parameters_function RPAREN LBRACE bloc RBRACE . SEMI
+
+    SEMI            shift and go to state 132
+
+
+state 126
+
+    (14) statement -> FUNCTION NAME LPAREN RPAREN LBRACE bloc return_statement RBRACE . SEMI
+
+    SEMI            shift and go to state 133
+
+
+state 127
+>>>>>>> test
 
     (16) return_statement -> RETURN expression . SEMI
-    (25) expression -> expression . PLUS expression
-    (26) expression -> expression . MINUS expression
-    (27) expression -> expression . TIMES expression
-    (28) expression -> expression . OR expression
-    (29) expression -> expression . AND expression
-    (30) expression -> expression . INF expression
-    (31) expression -> expression . SUP expression
-    (32) expression -> expression . DIVIDE expression
-    (33) expression -> expression . EQUALS expression
-    (35) expression -> expression . INF NAME INF expression
-    (36) expression -> expression . SUP NAME SUP expression
+    (29) expression -> expression . PLUS expression
+    (30) expression -> expression . MINUS expression
+    (31) expression -> expression . TIMES expression
+    (32) expression -> expression . OR expression
+    (33) expression -> expression . AND expression
+    (34) expression -> expression . INF expression
+    (35) expression -> expression . SUP expression
+    (36) expression -> expression . DIVIDE expression
+    (37) expression -> expression . EQUALS expression
+    (39) expression -> expression . INF NAME INF expression
+    (40) expression -> expression . SUP NAME SUP expression
 
+<<<<<<< HEAD
     SEMI            shift and go to state 147
     PLUS            shift and go to state 43
     MINUS           shift and go to state 44
@@ -3125,6 +5100,28 @@ state 140
 
 
 state 141
+=======
+    SEMI            shift and go to state 134
+    PLUS            shift and go to state 45
+    MINUS           shift and go to state 46
+    TIMES           shift and go to state 47
+    OR              shift and go to state 48
+    AND             shift and go to state 49
+    INF             shift and go to state 50
+    SUP             shift and go to state 51
+    DIVIDE          shift and go to state 52
+    EQUALS          shift and go to state 53
+
+
+state 128
+
+    (15) statement -> FUNCTION NAME LPAREN parameters_function RPAREN LBRACE bloc return_statement . RBRACE SEMI
+
+    RBRACE          shift and go to state 135
+
+
+state 129
+>>>>>>> test
 
     (6) condition -> ELSE LBRACE . bloc RBRACE SEMI
     (2) bloc -> . bloc statement
@@ -3140,12 +5137,19 @@ state 141
     (13) statement -> . NAME LPAREN parameters RPAREN SEMI
     (14) statement -> . FUNCTION NAME LPAREN RPAREN LBRACE bloc return_statement RBRACE SEMI
     (15) statement -> . FUNCTION NAME LPAREN parameters_function RPAREN LBRACE bloc return_statement RBRACE SEMI
+<<<<<<< HEAD
     (21) statement -> . NAME EQUAL expression SEMI
     (22) statement -> . PRINT LPAREN expression_print RPAREN SEMI
     (37) statement -> . NAME PLUSPLUS SEMI
     (38) statement -> . NAME PLUSEQUAL expression SEMI
     (41) statement -> . NAME LBRACKET RBRACKET EQUAL LBRACKET array_values RBRACKET SEMI
     (42) statement -> . NAME LBRACKET expression RBRACKET EQUAL expression SEMI
+=======
+    (22) statement -> . NAME EQUAL expression SEMI
+    (23) statement -> . NAME EQUAL statement
+    (24) statement -> . PRINT LPAREN expression_print RPAREN SEMI
+    (41) statement -> . NAME PLUSPLUS SEMI
+>>>>>>> test
 
     IF              shift and go to state 4
     WHILE           shift and go to state 5
@@ -3155,10 +5159,17 @@ state 141
     FUNCTION        shift and go to state 9
     PRINT           shift and go to state 10
 
+<<<<<<< HEAD
     bloc                           shift and go to state 149
     statement                      shift and go to state 3
 
 state 142
+=======
+    bloc                           shift and go to state 136
+    statement                      shift and go to state 3
+
+state 130
+>>>>>>> test
 
     (9) statement -> FOR LPAREN statement expression SEMI statement RPAREN LBRACE bloc . RBRACE SEMI
     (2) bloc -> bloc . statement
@@ -3173,6 +5184,7 @@ state 142
     (13) statement -> . NAME LPAREN parameters RPAREN SEMI
     (14) statement -> . FUNCTION NAME LPAREN RPAREN LBRACE bloc return_statement RBRACE SEMI
     (15) statement -> . FUNCTION NAME LPAREN parameters_function RPAREN LBRACE bloc return_statement RBRACE SEMI
+<<<<<<< HEAD
     (21) statement -> . NAME EQUAL expression SEMI
     (22) statement -> . PRINT LPAREN expression_print RPAREN SEMI
     (37) statement -> . NAME PLUSPLUS SEMI
@@ -3181,6 +5193,14 @@ state 142
     (42) statement -> . NAME LBRACKET expression RBRACKET EQUAL expression SEMI
 
     RBRACE          shift and go to state 150
+=======
+    (22) statement -> . NAME EQUAL expression SEMI
+    (23) statement -> . NAME EQUAL statement
+    (24) statement -> . PRINT LPAREN expression_print RPAREN SEMI
+    (41) statement -> . NAME PLUSPLUS SEMI
+
+    RBRACE          shift and go to state 137
+>>>>>>> test
     IF              shift and go to state 4
     WHILE           shift and go to state 5
     FOR             shift and go to state 6
@@ -3189,9 +5209,13 @@ state 142
     FUNCTION        shift and go to state 9
     PRINT           shift and go to state 10
 
-    statement                      shift and go to state 11
+    statement                      shift and go to state 12
 
+<<<<<<< HEAD
 state 143
+=======
+state 131
+>>>>>>> test
 
     (8) statement -> FOR LPAREN statement expression SEMI expression RPAREN LBRACE bloc . RBRACE SEMI
     (2) bloc -> bloc . statement
@@ -3206,6 +5230,7 @@ state 143
     (13) statement -> . NAME LPAREN parameters RPAREN SEMI
     (14) statement -> . FUNCTION NAME LPAREN RPAREN LBRACE bloc return_statement RBRACE SEMI
     (15) statement -> . FUNCTION NAME LPAREN parameters_function RPAREN LBRACE bloc return_statement RBRACE SEMI
+<<<<<<< HEAD
     (21) statement -> . NAME EQUAL expression SEMI
     (22) statement -> . PRINT LPAREN expression_print RPAREN SEMI
     (37) statement -> . NAME PLUSPLUS SEMI
@@ -3214,6 +5239,14 @@ state 143
     (42) statement -> . NAME LBRACKET expression RBRACKET EQUAL expression SEMI
 
     RBRACE          shift and go to state 151
+=======
+    (22) statement -> . NAME EQUAL expression SEMI
+    (23) statement -> . NAME EQUAL statement
+    (24) statement -> . PRINT LPAREN expression_print RPAREN SEMI
+    (41) statement -> . NAME PLUSPLUS SEMI
+
+    RBRACE          shift and go to state 138
+>>>>>>> test
     IF              shift and go to state 4
     WHILE           shift and go to state 5
     FOR             shift and go to state 6
@@ -3222,8 +5255,9 @@ state 143
     FUNCTION        shift and go to state 9
     PRINT           shift and go to state 10
 
-    statement                      shift and go to state 11
+    statement                      shift and go to state 12
 
+<<<<<<< HEAD
 state 144
 
     (43) expression -> NAME LBRACKET expression RBRACKET .
@@ -3243,9 +5277,13 @@ state 144
 
 
 state 145
+=======
+state 132
+>>>>>>> test
 
     (11) statement -> VOID NAME LPAREN parameters_function RPAREN LBRACE bloc RBRACE SEMI .
 
+    MAIN            reduce using rule 11 (statement -> VOID NAME LPAREN parameters_function RPAREN LBRACE bloc RBRACE SEMI .)
     IF              reduce using rule 11 (statement -> VOID NAME LPAREN parameters_function RPAREN LBRACE bloc RBRACE SEMI .)
     WHILE           reduce using rule 11 (statement -> VOID NAME LPAREN parameters_function RPAREN LBRACE bloc RBRACE SEMI .)
     FOR             reduce using rule 11 (statement -> VOID NAME LPAREN parameters_function RPAREN LBRACE bloc RBRACE SEMI .)
@@ -3253,18 +5291,23 @@ state 145
     NAME            reduce using rule 11 (statement -> VOID NAME LPAREN parameters_function RPAREN LBRACE bloc RBRACE SEMI .)
     FUNCTION        reduce using rule 11 (statement -> VOID NAME LPAREN parameters_function RPAREN LBRACE bloc RBRACE SEMI .)
     PRINT           reduce using rule 11 (statement -> VOID NAME LPAREN parameters_function RPAREN LBRACE bloc RBRACE SEMI .)
-    $end            reduce using rule 11 (statement -> VOID NAME LPAREN parameters_function RPAREN LBRACE bloc RBRACE SEMI .)
     LPAREN          reduce using rule 11 (statement -> VOID NAME LPAREN parameters_function RPAREN LBRACE bloc RBRACE SEMI .)
     NUMBER          reduce using rule 11 (statement -> VOID NAME LPAREN parameters_function RPAREN LBRACE bloc RBRACE SEMI .)
-    RBRACE          reduce using rule 11 (statement -> VOID NAME LPAREN parameters_function RPAREN LBRACE bloc RBRACE SEMI .)
+    COMMA           reduce using rule 11 (statement -> VOID NAME LPAREN parameters_function RPAREN LBRACE bloc RBRACE SEMI .)
     RPAREN          reduce using rule 11 (statement -> VOID NAME LPAREN parameters_function RPAREN LBRACE bloc RBRACE SEMI .)
+    RBRACE          reduce using rule 11 (statement -> VOID NAME LPAREN parameters_function RPAREN LBRACE bloc RBRACE SEMI .)
     RETURN          reduce using rule 11 (statement -> VOID NAME LPAREN parameters_function RPAREN LBRACE bloc RBRACE SEMI .)
 
 
+<<<<<<< HEAD
 state 146
+=======
+state 133
+>>>>>>> test
 
     (14) statement -> FUNCTION NAME LPAREN RPAREN LBRACE bloc return_statement RBRACE SEMI .
 
+    MAIN            reduce using rule 14 (statement -> FUNCTION NAME LPAREN RPAREN LBRACE bloc return_statement RBRACE SEMI .)
     IF              reduce using rule 14 (statement -> FUNCTION NAME LPAREN RPAREN LBRACE bloc return_statement RBRACE SEMI .)
     WHILE           reduce using rule 14 (statement -> FUNCTION NAME LPAREN RPAREN LBRACE bloc return_statement RBRACE SEMI .)
     FOR             reduce using rule 14 (statement -> FUNCTION NAME LPAREN RPAREN LBRACE bloc return_statement RBRACE SEMI .)
@@ -3272,21 +5315,26 @@ state 146
     NAME            reduce using rule 14 (statement -> FUNCTION NAME LPAREN RPAREN LBRACE bloc return_statement RBRACE SEMI .)
     FUNCTION        reduce using rule 14 (statement -> FUNCTION NAME LPAREN RPAREN LBRACE bloc return_statement RBRACE SEMI .)
     PRINT           reduce using rule 14 (statement -> FUNCTION NAME LPAREN RPAREN LBRACE bloc return_statement RBRACE SEMI .)
-    $end            reduce using rule 14 (statement -> FUNCTION NAME LPAREN RPAREN LBRACE bloc return_statement RBRACE SEMI .)
     LPAREN          reduce using rule 14 (statement -> FUNCTION NAME LPAREN RPAREN LBRACE bloc return_statement RBRACE SEMI .)
     NUMBER          reduce using rule 14 (statement -> FUNCTION NAME LPAREN RPAREN LBRACE bloc return_statement RBRACE SEMI .)
-    RBRACE          reduce using rule 14 (statement -> FUNCTION NAME LPAREN RPAREN LBRACE bloc return_statement RBRACE SEMI .)
+    COMMA           reduce using rule 14 (statement -> FUNCTION NAME LPAREN RPAREN LBRACE bloc return_statement RBRACE SEMI .)
     RPAREN          reduce using rule 14 (statement -> FUNCTION NAME LPAREN RPAREN LBRACE bloc return_statement RBRACE SEMI .)
+    RBRACE          reduce using rule 14 (statement -> FUNCTION NAME LPAREN RPAREN LBRACE bloc return_statement RBRACE SEMI .)
     RETURN          reduce using rule 14 (statement -> FUNCTION NAME LPAREN RPAREN LBRACE bloc return_statement RBRACE SEMI .)
 
 
+<<<<<<< HEAD
 state 147
+=======
+state 134
+>>>>>>> test
 
     (16) return_statement -> RETURN expression SEMI .
 
     RBRACE          reduce using rule 16 (return_statement -> RETURN expression SEMI .)
 
 
+<<<<<<< HEAD
 state 148
 
     (15) statement -> FUNCTION NAME LPAREN parameters_function RPAREN LBRACE bloc return_statement RBRACE . SEMI
@@ -3295,6 +5343,16 @@ state 148
 
 
 state 149
+=======
+state 135
+
+    (15) statement -> FUNCTION NAME LPAREN parameters_function RPAREN LBRACE bloc return_statement RBRACE . SEMI
+
+    SEMI            shift and go to state 139
+
+
+state 136
+>>>>>>> test
 
     (6) condition -> ELSE LBRACE bloc . RBRACE SEMI
     (2) bloc -> bloc . statement
@@ -3309,6 +5367,7 @@ state 149
     (13) statement -> . NAME LPAREN parameters RPAREN SEMI
     (14) statement -> . FUNCTION NAME LPAREN RPAREN LBRACE bloc return_statement RBRACE SEMI
     (15) statement -> . FUNCTION NAME LPAREN parameters_function RPAREN LBRACE bloc return_statement RBRACE SEMI
+<<<<<<< HEAD
     (21) statement -> . NAME EQUAL expression SEMI
     (22) statement -> . PRINT LPAREN expression_print RPAREN SEMI
     (37) statement -> . NAME PLUSPLUS SEMI
@@ -3317,6 +5376,14 @@ state 149
     (42) statement -> . NAME LBRACKET expression RBRACKET EQUAL expression SEMI
 
     RBRACE          shift and go to state 153
+=======
+    (22) statement -> . NAME EQUAL expression SEMI
+    (23) statement -> . NAME EQUAL statement
+    (24) statement -> . PRINT LPAREN expression_print RPAREN SEMI
+    (41) statement -> . NAME PLUSPLUS SEMI
+
+    RBRACE          shift and go to state 140
+>>>>>>> test
     IF              shift and go to state 4
     WHILE           shift and go to state 5
     FOR             shift and go to state 6
@@ -3325,8 +5392,9 @@ state 149
     FUNCTION        shift and go to state 9
     PRINT           shift and go to state 10
 
-    statement                      shift and go to state 11
+    statement                      shift and go to state 12
 
+<<<<<<< HEAD
 state 150
 
     (9) statement -> FOR LPAREN statement expression SEMI statement RPAREN LBRACE bloc RBRACE . SEMI
@@ -3342,9 +5410,27 @@ state 151
 
 
 state 152
+=======
+state 137
+
+    (9) statement -> FOR LPAREN statement expression SEMI statement RPAREN LBRACE bloc RBRACE . SEMI
+
+    SEMI            shift and go to state 141
+
+
+state 138
+
+    (8) statement -> FOR LPAREN statement expression SEMI expression RPAREN LBRACE bloc RBRACE . SEMI
+
+    SEMI            shift and go to state 142
+
+
+state 139
+>>>>>>> test
 
     (15) statement -> FUNCTION NAME LPAREN parameters_function RPAREN LBRACE bloc return_statement RBRACE SEMI .
 
+    MAIN            reduce using rule 15 (statement -> FUNCTION NAME LPAREN parameters_function RPAREN LBRACE bloc return_statement RBRACE SEMI .)
     IF              reduce using rule 15 (statement -> FUNCTION NAME LPAREN parameters_function RPAREN LBRACE bloc return_statement RBRACE SEMI .)
     WHILE           reduce using rule 15 (statement -> FUNCTION NAME LPAREN parameters_function RPAREN LBRACE bloc return_statement RBRACE SEMI .)
     FOR             reduce using rule 15 (statement -> FUNCTION NAME LPAREN parameters_function RPAREN LBRACE bloc return_statement RBRACE SEMI .)
@@ -3352,14 +5438,15 @@ state 152
     NAME            reduce using rule 15 (statement -> FUNCTION NAME LPAREN parameters_function RPAREN LBRACE bloc return_statement RBRACE SEMI .)
     FUNCTION        reduce using rule 15 (statement -> FUNCTION NAME LPAREN parameters_function RPAREN LBRACE bloc return_statement RBRACE SEMI .)
     PRINT           reduce using rule 15 (statement -> FUNCTION NAME LPAREN parameters_function RPAREN LBRACE bloc return_statement RBRACE SEMI .)
-    $end            reduce using rule 15 (statement -> FUNCTION NAME LPAREN parameters_function RPAREN LBRACE bloc return_statement RBRACE SEMI .)
     LPAREN          reduce using rule 15 (statement -> FUNCTION NAME LPAREN parameters_function RPAREN LBRACE bloc return_statement RBRACE SEMI .)
     NUMBER          reduce using rule 15 (statement -> FUNCTION NAME LPAREN parameters_function RPAREN LBRACE bloc return_statement RBRACE SEMI .)
-    RBRACE          reduce using rule 15 (statement -> FUNCTION NAME LPAREN parameters_function RPAREN LBRACE bloc return_statement RBRACE SEMI .)
+    COMMA           reduce using rule 15 (statement -> FUNCTION NAME LPAREN parameters_function RPAREN LBRACE bloc return_statement RBRACE SEMI .)
     RPAREN          reduce using rule 15 (statement -> FUNCTION NAME LPAREN parameters_function RPAREN LBRACE bloc return_statement RBRACE SEMI .)
+    RBRACE          reduce using rule 15 (statement -> FUNCTION NAME LPAREN parameters_function RPAREN LBRACE bloc return_statement RBRACE SEMI .)
     RETURN          reduce using rule 15 (statement -> FUNCTION NAME LPAREN parameters_function RPAREN LBRACE bloc return_statement RBRACE SEMI .)
 
 
+<<<<<<< HEAD
 state 153
 
     (6) condition -> ELSE LBRACE bloc RBRACE . SEMI
@@ -3368,9 +5455,20 @@ state 153
 
 
 state 154
+=======
+state 140
+
+    (6) condition -> ELSE LBRACE bloc RBRACE . SEMI
+
+    SEMI            shift and go to state 143
+
+
+state 141
+>>>>>>> test
 
     (9) statement -> FOR LPAREN statement expression SEMI statement RPAREN LBRACE bloc RBRACE SEMI .
 
+    MAIN            reduce using rule 9 (statement -> FOR LPAREN statement expression SEMI statement RPAREN LBRACE bloc RBRACE SEMI .)
     IF              reduce using rule 9 (statement -> FOR LPAREN statement expression SEMI statement RPAREN LBRACE bloc RBRACE SEMI .)
     WHILE           reduce using rule 9 (statement -> FOR LPAREN statement expression SEMI statement RPAREN LBRACE bloc RBRACE SEMI .)
     FOR             reduce using rule 9 (statement -> FOR LPAREN statement expression SEMI statement RPAREN LBRACE bloc RBRACE SEMI .)
@@ -3378,18 +5476,23 @@ state 154
     NAME            reduce using rule 9 (statement -> FOR LPAREN statement expression SEMI statement RPAREN LBRACE bloc RBRACE SEMI .)
     FUNCTION        reduce using rule 9 (statement -> FOR LPAREN statement expression SEMI statement RPAREN LBRACE bloc RBRACE SEMI .)
     PRINT           reduce using rule 9 (statement -> FOR LPAREN statement expression SEMI statement RPAREN LBRACE bloc RBRACE SEMI .)
-    $end            reduce using rule 9 (statement -> FOR LPAREN statement expression SEMI statement RPAREN LBRACE bloc RBRACE SEMI .)
     LPAREN          reduce using rule 9 (statement -> FOR LPAREN statement expression SEMI statement RPAREN LBRACE bloc RBRACE SEMI .)
     NUMBER          reduce using rule 9 (statement -> FOR LPAREN statement expression SEMI statement RPAREN LBRACE bloc RBRACE SEMI .)
-    RBRACE          reduce using rule 9 (statement -> FOR LPAREN statement expression SEMI statement RPAREN LBRACE bloc RBRACE SEMI .)
+    COMMA           reduce using rule 9 (statement -> FOR LPAREN statement expression SEMI statement RPAREN LBRACE bloc RBRACE SEMI .)
     RPAREN          reduce using rule 9 (statement -> FOR LPAREN statement expression SEMI statement RPAREN LBRACE bloc RBRACE SEMI .)
+    RBRACE          reduce using rule 9 (statement -> FOR LPAREN statement expression SEMI statement RPAREN LBRACE bloc RBRACE SEMI .)
     RETURN          reduce using rule 9 (statement -> FOR LPAREN statement expression SEMI statement RPAREN LBRACE bloc RBRACE SEMI .)
 
 
+<<<<<<< HEAD
 state 155
+=======
+state 142
+>>>>>>> test
 
     (8) statement -> FOR LPAREN statement expression SEMI expression RPAREN LBRACE bloc RBRACE SEMI .
 
+    MAIN            reduce using rule 8 (statement -> FOR LPAREN statement expression SEMI expression RPAREN LBRACE bloc RBRACE SEMI .)
     IF              reduce using rule 8 (statement -> FOR LPAREN statement expression SEMI expression RPAREN LBRACE bloc RBRACE SEMI .)
     WHILE           reduce using rule 8 (statement -> FOR LPAREN statement expression SEMI expression RPAREN LBRACE bloc RBRACE SEMI .)
     FOR             reduce using rule 8 (statement -> FOR LPAREN statement expression SEMI expression RPAREN LBRACE bloc RBRACE SEMI .)
@@ -3397,18 +5500,23 @@ state 155
     NAME            reduce using rule 8 (statement -> FOR LPAREN statement expression SEMI expression RPAREN LBRACE bloc RBRACE SEMI .)
     FUNCTION        reduce using rule 8 (statement -> FOR LPAREN statement expression SEMI expression RPAREN LBRACE bloc RBRACE SEMI .)
     PRINT           reduce using rule 8 (statement -> FOR LPAREN statement expression SEMI expression RPAREN LBRACE bloc RBRACE SEMI .)
-    $end            reduce using rule 8 (statement -> FOR LPAREN statement expression SEMI expression RPAREN LBRACE bloc RBRACE SEMI .)
     LPAREN          reduce using rule 8 (statement -> FOR LPAREN statement expression SEMI expression RPAREN LBRACE bloc RBRACE SEMI .)
     NUMBER          reduce using rule 8 (statement -> FOR LPAREN statement expression SEMI expression RPAREN LBRACE bloc RBRACE SEMI .)
-    RBRACE          reduce using rule 8 (statement -> FOR LPAREN statement expression SEMI expression RPAREN LBRACE bloc RBRACE SEMI .)
+    COMMA           reduce using rule 8 (statement -> FOR LPAREN statement expression SEMI expression RPAREN LBRACE bloc RBRACE SEMI .)
     RPAREN          reduce using rule 8 (statement -> FOR LPAREN statement expression SEMI expression RPAREN LBRACE bloc RBRACE SEMI .)
+    RBRACE          reduce using rule 8 (statement -> FOR LPAREN statement expression SEMI expression RPAREN LBRACE bloc RBRACE SEMI .)
     RETURN          reduce using rule 8 (statement -> FOR LPAREN statement expression SEMI expression RPAREN LBRACE bloc RBRACE SEMI .)
 
 
+<<<<<<< HEAD
 state 156
+=======
+state 143
+>>>>>>> test
 
     (6) condition -> ELSE LBRACE bloc RBRACE SEMI .
 
+    MAIN            reduce using rule 6 (condition -> ELSE LBRACE bloc RBRACE SEMI .)
     IF              reduce using rule 6 (condition -> ELSE LBRACE bloc RBRACE SEMI .)
     WHILE           reduce using rule 6 (condition -> ELSE LBRACE bloc RBRACE SEMI .)
     FOR             reduce using rule 6 (condition -> ELSE LBRACE bloc RBRACE SEMI .)
@@ -3416,11 +5524,11 @@ state 156
     NAME            reduce using rule 6 (condition -> ELSE LBRACE bloc RBRACE SEMI .)
     FUNCTION        reduce using rule 6 (condition -> ELSE LBRACE bloc RBRACE SEMI .)
     PRINT           reduce using rule 6 (condition -> ELSE LBRACE bloc RBRACE SEMI .)
-    $end            reduce using rule 6 (condition -> ELSE LBRACE bloc RBRACE SEMI .)
     LPAREN          reduce using rule 6 (condition -> ELSE LBRACE bloc RBRACE SEMI .)
     NUMBER          reduce using rule 6 (condition -> ELSE LBRACE bloc RBRACE SEMI .)
-    RBRACE          reduce using rule 6 (condition -> ELSE LBRACE bloc RBRACE SEMI .)
+    COMMA           reduce using rule 6 (condition -> ELSE LBRACE bloc RBRACE SEMI .)
     RPAREN          reduce using rule 6 (condition -> ELSE LBRACE bloc RBRACE SEMI .)
+    RBRACE          reduce using rule 6 (condition -> ELSE LBRACE bloc RBRACE SEMI .)
     RETURN          reduce using rule 6 (condition -> ELSE LBRACE bloc RBRACE SEMI .)
 
 WARNING: 
