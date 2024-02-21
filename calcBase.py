@@ -102,7 +102,7 @@ def p_start(t):
     printTreeGraph(t[0])
     # eval(t[1])
     stack.append(t[0])
-    # evalInst(t[1])
+    evalInst(t[1])
     execute_instructions()
 
 
@@ -121,7 +121,7 @@ def evalInst(t):
         arrays[t[1]] = t[2]
     if t[0] == 'accessArray':
         if eval(t[2]) < len(arrays[t[1]]):
-            return arrays[t[1]][eval(t[2])]
+            eval(t)
     if t[0] == 'assignArray':
         arrays[t[1]][eval(t[2])] = eval(t[3])
     if t[0] == 'assignPlus':
@@ -374,7 +374,7 @@ def p_statement_assign_tab(t):
 
 def p_expression_array_access(p):
     '''
-    expression : NAME LBRACKET expression RBRACKET SEMI
+    expression : NAME LBRACKET expression RBRACKET
     '''
     p[0] = ('accessArray', p[1], p[3])
 
@@ -415,6 +415,8 @@ def eval(t):
         if t[0] == '&':     return eval(t[1]) and eval(t[2])
         if t[0] == '|':     return eval(t[1]) or eval(t[2])
         if t[0] == '==':    return eval(t[1]) == eval(t[2])
+
+        if t[0] == 'accessArray': return arrays[t[1]][t[2]]
     if type(t) is str:
         return names[t]
     return 'UNK'
@@ -426,7 +428,7 @@ def eval(t):
 # s = "x=5;print(1+2,3+5,10+6,x);"
 # s = "x=2;while(x<5){x++;print(x);};"
 # s = "for(i=0;i<10;i=i+2;){print(i);print(i+1);};"
-s = "x=5;x+=3; print(x);"
-#s = "myarray[] = [5,6]; print(myarray[0];);"
+#s = "x=5;x+=3;print(x);"
+s = "myarray[] = [5,6]; myarray[1] = 2; print(myarray[1] + 1);"
 # s = input('calc > ')
 yacc.parse(s)
