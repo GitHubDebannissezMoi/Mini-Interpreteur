@@ -14,7 +14,8 @@ reserved = {
    'for' : 'FOR',
    'void' : 'VOID',
    'function' : 'FUNCTION',
-   'return' : 'RETURN'
+   'return' : 'RETURN',
+   'main' : 'MAIN'
    }
 
 tokens = [
@@ -77,25 +78,23 @@ def t_error(t):
 names = {}
 functionNames = {}
 stack = []
+scope = {}
 
 # Build the lexer
 import ply.lex as lex
 lex.lex()
 
 def p_start(t):
-    ''' start : bloc'''
-    t[0] = ('start',t[1])
-    print(t[0])
+    ''' start : bloc function_main'''
+    t[0] = ('start',t[1],t[2])
     printTreeGraph(t[0])
-    #eval(t[1])
-    stack.append(t[0])
     #evalInst(t[1])
-    execute_instructions()
+    stack.append(t[2][0])
+    stack.append(t[2][1])
+    manage_stack()
 
 def evalInst(t):
-    print('evalInst', t)
     if type(t)!=tuple : 
-        print('warning')
         return
     if t[0]=='print' :
         evalInst(t[1])
@@ -126,52 +125,84 @@ def evalInst(t):
             evalInst(t[4])
             evalInst(t[3])
     if t[0]=='call' :
-        if len(t) == 3 :
-            evalInst((t[1],t[2],t[3]))
-        else :
-            evalInst((t[1],t[2],t[3],t[4]))
-    if t[0]=='void' :
-        if len(t) == 4 :
-            paramDecla = functionNames[t[1]][2]
-            paramCall = t[2]
-            while(len(paramDecla) > 2) :
-                names[paramDecla[1]] = eval(paramCall[1])
-                paramDecla = paramDecla[2]
-                paramCall = paramCall[2]
-            names[paramDecla[1]] = eval(paramCall[1])
-            evalInst(t[3])
-        else :
-            evalInst(t[2])
-    if t[0]=='function' :
-        if len(t) == 4 :
-            paramDecla = functionNames[t[1]][2]
-            paramCall = t[2]
-            while(len(paramDecla) > 2) :
-                names[paramDecla[1]] = eval(paramCall[1])
-                paramDecla = paramDecla[2]
-                paramCall = paramCall[2]
-            names[paramDecla[1]] = eval(paramCall[1])
-            evalInst(t[3])
-            print(eval(functionNames[t[1]][3][1]))  
-        else :
-            evalInst(t[2])
-            print(eval(functionNames[t[1]][2][1]))    
+        evalInst(functionNames[t[2]][1])
+    if t[0]=='return':
+        return eval(t[1])  
     if t[0]=='expr':
         while (len(t) > 2) :
             print('CALC>', eval(t[1]))
             t = t[2]
         print('CALC>', eval(t[1]))
            
-def execute_instructions():
-    while(len(stack) != 0) :
-        instruction = stack.pop()
-        if instruction[0] == 'assign':
-            evalInst(instruction)
-        if instruction[0] == 'print':
-            evalInst(instruction)
-        if instruction[0] == 'expr':
-            evalInst(instruction)
+
+def manage_stack():
+    while len(stack) > 0:
+        item = stack.pop()
+        if item == "main":
+            return
+
+        if type(item) != tuple:
+            itemTmp = stack.pop()
+            if itemTmp == "print":
+                print("CALC>",eval(item))
+            elif itemTmp[0] == "assign":
+                names[itemTmp[1]] = item
+            elif itemTmp[0] == "assignPlus":
+                names[itemTmp[1]]+= item
+            else :
+                item = itemTmp
+        add_instructions(item)
         
+def add_instructions(t):
+    if type(t) is tuple : 
+        if t[0] == "call":
+            if t[1] == "function":
+                stack.append(functionNames[t[2]][3])
+            stack.append(functionNames[t[2]][1])
+            paramDecla = functionNames[t[2]][2]
+            paramCall = t[3]
+            while(len(paramDecla) > 2) :
+                names[paramDecla[1]] = eval(paramCall[1])
+                paramDecla = paramDecla[2]
+                paramCall = paramCall[2]
+            names[paramDecla[1]] = eval(paramCall[1])
+        elif t[0] == "bloc":
+            if t[2] != "empty":
+                stack.append(t[2])
+            stack.append(t[1])
+        elif t[0] == "print":
+            stack.append(t[0])
+            stack.append(t[1])
+        elif t[0] == "assign":
+            stack.append(tuple([t[0],t[1]]))
+            stack.append(t[2])
+        elif t[0] == "assignPlus":
+            stack.append(tuple([t[0],t[1]]))
+            stack.append(1)
+        elif t[0] == "expr":
+            stack.append(t[1])
+        elif t[0] == "return":
+            stack.append(eval(t[1]))
+        elif t[0] == "if":
+            if eval(t[1]) == True:
+                stack.append(t[2])
+            else :
+                if len(t) > 3:
+                    stack.append(t[3])
+        elif t[0] == "else":
+            stack.append(t[1])
+        elif t[0] == "while":
+            if eval(t[1]) == True:
+                stack.append(t)
+                stack.append(t[2])
+        elif t[0] == "for":
+            stack.append(tuple(["boucle",t[2],t[3],t[4]]))
+            stack.append(t[1])
+        elif t[0] == "boucle":
+            if eval(t[1]) == True:
+                stack.append(tuple(["boucle",t[1],t[2],t[3]]))
+                stack.append(t[2])
+                stack.append(t[3])
             
 def p_line(t):
     '''bloc : bloc statement
@@ -214,16 +245,9 @@ def p_statement_functions_call(t):
     '''statement : NAME LPAREN RPAREN SEMI
     | NAME LPAREN parameters RPAREN SEMI'''
     if len(t) == 5 : 
-        if functionNames[t[1]][0] == 'function' :
-            t[0] = ('call',functionNames[t[1]][0],t[1],functionNames[t[1]][1],functionNames[t[1]][2])
-        else :
-            t[0] = ('call',functionNames[t[1]][0],t[1],functionNames[t[1]])
+        t[0] = ('call',functionNames[t[1]][0],t[1])
     else : 
-        if functionNames[t[1]][0] == 'function' :
-            t[0] = ('call',functionNames[t[1]][0],t[1],t[3],functionNames[t[1]][1],functionNames[t[1]][3])
-        else :
-            t[0] = ('call',functionNames[t[1]][0],t[1],t[3],functionNames[t[1]][1])
-        
+        t[0] = ('call',functionNames[t[1]][0],t[1],t[3])
     
 def p_statement_function_declaration(t):
     '''statement : FUNCTION NAME LPAREN RPAREN LBRACE bloc return_statement RBRACE SEMI
@@ -251,8 +275,16 @@ def p_parameters(t):
     if len(t) == 2 : t[0] = ('param',t[1])
     else : t[0] = ('param',t[1],t[3])
      
+def p_function_main(t):
+    'function_main : MAIN LPAREN RPAREN LBRACE bloc RBRACE '
+    t[0] = ('main',t[5])
+    
 def p_statement_assign(t):
     'statement : NAME EQUAL expression SEMI'
+    t[0] = ('assign',t[1], t[3])
+    
+def p_statement_assign_function(t):
+    'statement : NAME EQUAL statement'
     t[0] = ('assign',t[1], t[3])
 
 def p_statement_print(t):
@@ -262,6 +294,12 @@ def p_statement_print(t):
 def p_expression_print(t):
     '''expression_print : expression COMMA expression_print
     | expression'''
+    if len(t) == 4 : t[0] = ('expr',t[1],t[3])
+    else : t[0] = ('expr',t[1])
+    
+def p_expression_print_statement(t):
+    '''expression_print : statement COMMA expression_print
+    | statement'''
     if len(t) == 4 : t[0] = ('expr',t[1],t[3])
     else : t[0] = ('expr',t[1])
 
@@ -307,7 +345,6 @@ import ply.yacc as yacc
 yacc.yacc()
 
 def eval (t):
-    print('eval de ',t)
     if type(t) is int : return t
     if type(t) is bool : return t
     if type(t) is tuple : 
@@ -328,7 +365,8 @@ def eval (t):
 #s = "print(1+2);print(5+6);x=2;x++;print(x);if(1+2==3){print(1+2);}else{print(2+3);};"
 #s = "void test(x,y){print(x);print(y);};test(1+1,5);"
 #s = "function test(x,y){print(x);print(y);return x+y;};test(1,5);"
-s = "x=5;print(1+2,3+5,10+6,x);"
+#s = "x=5;print(1+2,3+5,10+6,x);"
+s = "function test(x,y){print(x);print(y);return x+y;};function testdeux(a){print(a);return a+2;}; main(){print(test(1,5););print(x);a=2;for(i=0;i<5;i++;){print(i);};}"
 #s = "x=2;while(x<5){x++;print(x);};"
 #s = "for(i=0;i<10;i=i+2;){print(i);print(i+1);};"
 #s = input('calc > ')
