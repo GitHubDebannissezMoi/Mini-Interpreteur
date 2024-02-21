@@ -30,4 +30,7 @@ Fonctionnalités implémentées :
 	(Exemple appel : test(10+6,5-2);)
 	
 	L'incrémentation de variable 
-	(Exemple : x++;)
+	(Exemple : x++;x+=1)
+
+	La gestion des tableaux (initialisation, affectation, appel)
+	(Exemple :myarray[] = [5,6]; myarray[1] = 2; print(myarray[1] + 1);)
