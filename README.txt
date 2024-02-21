@@ -32,5 +32,8 @@ Fonctionnalités implémentées :
 	L'incrémentation de variable 
 	(Exemple : x++;x+=1)
 
+	La pile d'execution avec fonction main
+	(Exemple : function test(x,y){print(x);print(y);return x+y;};function testdeux(a){print(a);return a+2;}; main(){print(test(1,5););print(x);a=2;for(i=0;i<5;i++;){print(test(3,6););};})
+
 	La gestion des tableaux (initialisation, affectation, appel)
 	(Exemple :myarray[] = [5,6]; myarray[1] = 2; print(myarray[1] + 1);)
