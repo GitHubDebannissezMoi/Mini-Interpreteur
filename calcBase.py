@@ -98,12 +98,19 @@ lex.lex()
 
 
 def p_start(t):
-    ''' start : bloc function_main'''
-    t[0] = ('start', t[1],t[2])
+    ''' start : bloc function_main
+    | function_main'''
+    if len(t) == 3: 
+        t[0] = ('start', t[1],t[2])
+        stack.append(t[2][0])
+        stack.append(t[2][1])
+    else :
+        t[0] = ('start', t[1])
+        stack.append(t[1][0])
+        stack.append(t[1][1])
     printTreeGraph(t[0])
     #evalInst(t[1])
-    stack.append(t[2][0])
-    stack.append(t[2][1])
+    
     manage_stack()
 
 
@@ -175,6 +182,12 @@ def manage_stack():
                 names[itemTmp[1]] = item
             elif itemTmp[0] == "assignPlus":
                 names[itemTmp[1]]+= item
+            elif itemTmp[0] == "initArray":
+                if itemTmp[1] not in arrays:
+                    arrays[itemTmp[1]] = {}
+                arrays[itemTmp[1]] = item
+            elif itemTmp[0] == "assignArray":
+                arrays[itemTmp[1]][itemTmp[2]] = item
             else :
                 item = itemTmp
         add_instructions(item)
@@ -206,7 +219,7 @@ def add_instructions(t):
             stack.append(tuple([t[0],t[1]]))
             stack.append(1)
         elif t[0] == "expr":
-            stack.append(t[1])
+            stack.append(eval(t[1]))
         elif t[0] == "return":
             stack.append(eval(t[1]))
         elif t[0] == "if":
@@ -229,6 +242,12 @@ def add_instructions(t):
                 stack.append(tuple(["boucle",t[1],t[2],t[3]]))
                 stack.append(t[2])
                 stack.append(t[3])
+        elif t[0] == "initArray":
+            stack.append(tuple([t[0],t[1]]))
+            stack.append(t[2])
+        elif t[0] == "assignArray":
+            stack.append(tuple([t[0],t[1],t[2]]))
+            stack.append(t[3])
             
 def p_line(t):
     '''bloc : bloc statement
@@ -443,13 +462,12 @@ def eval (t):
         if t[0] == '&':     return eval(t[1]) and eval(t[2])
         if t[0] == '|':     return eval(t[1]) or eval(t[2])
         if t[0] == '==':    return eval(t[1]) == eval(t[2])
-
         if t[0] == 'accessArray': return arrays[t[1]][t[2]]
     if type(t) is str:
         return names[t]
     return 'UNK'
 
-s = "function test(x,y){print(x);print(y);return x+y;};function testdeux(a){print(a);return a+2;}; main(){print(test(1,5););print(x);a=2;for(i=0;i<5;i++;){print(i);};}"
+#s = "function test(x,y){print(x);print(y);return x+y;};function testdeux(a){print(a);return a+2;}; main(){print(test(1,5););print(x);a=2;for(i=0;i<5;i++;){print(test(3,6););};}"
 # s = "print(1+2);print(5+6);x=2;x++;print(x);if(1+2==3){print(1+2);}else{print(2+3);};"
 # s = "void test(x,y){print(x);print(y);};test(1+1,5);"
 # s = "function test(x,y){print(x);print(y);return x+y;};test(1,5);"
@@ -457,6 +475,6 @@ s = "function test(x,y){print(x);print(y);return x+y;};function testdeux(a){prin
 # s = "x=2;while(x<5){x++;print(x);};"
 # s = "for(i=0;i<10;i=i+2;){print(i);print(i+1);};"
 #s = "x=5;x+=3;print(x);"
-#s = "myarray[] = [5,6]; myarray[1] = 2; print(myarray[1] + 1);"
+s = "main(){myarray[] = [5,6]; myarray[1] = 2; print(myarray[1] + 1);print(2+2);x=2;print(x+3);}"
 # s = input('calc > ')
 yacc.parse(s)
