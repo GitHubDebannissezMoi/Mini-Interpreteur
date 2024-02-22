@@ -224,12 +224,15 @@ def add_instructions(t):
             stack.append(tuple([t[0],t[1]]))
             stack.append(1)
         elif t[0] == "expr":
-            stackTmp.append(eval(t[1]))
+            if t[1][0] == "call":
+                stack.append(t[1])
+            else :
+                stackTmp.append(t[1])
             if len(t) > 2:
                 stack.append(t[2])
             #stack.append(eval(t[1]))
         elif t[0] == "return":
-            stack.append(eval(t[1]))
+            stackTmp.append(t[1])
         elif t[0] == "if":
             if eval(t[1]) == True:
                 stack.append(t[2])
@@ -475,7 +478,7 @@ def eval (t):
         return names[t]
     return 'UNK'
 
-#s = "function test(x,y){print(x);print(y);return x+y;};function testdeux(a){print(a);return a+2;}; main(){print(test(1,5););print(x);a=2;for(i=0;i<5;i++;){print(test(3,6););};}"
+s = "function test(x,y){print(x);print(y);return x+y;};function testdeux(a){print(a);return a+2;}; main(){print(test(1,5););print(x);a=2;for(i=0;i<5;i++;){print(test(3,6););};print(a+2,a-3);}"
 # s = "print(1+2);print(5+6);x=2;x++;print(x);if(1+2==3){print(1+2);}else{print(2+3);};"
 # s = "void test(x,y){print(x);print(y);};test(1+1,5);"
 # s = "function test(x,y){print(x);print(y);return x+y;};test(1,5);"
@@ -484,6 +487,6 @@ def eval (t):
 # s = "for(i=0;i<10;i=i+2;){print(i);print(i+1);};"
 #s = "x=5;x+=3;print(x);"
 #s = "main(){print(2+2,3+4);}"
-s = "main(){myarray[] = [5,6]; myarray[1] = 2; print(myarray[1] + 1);print(2+2);x=2;print(x+3,x+9);}"
+#s = "main(){myarray[] = [5,6]; myarray[1] = 2; print(myarray[1] + 1);print(2+2);x=2;print(x+3,x+9);}"
 # s = input('calc > ')
 yacc.parse(s)
